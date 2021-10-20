@@ -1,3 +1,5 @@
+////////////////////// DATABASE TABLES ////////////////////////
+
 ///////////////////
 //PRODUCTS/////////
 ///////////////////
@@ -12,12 +14,22 @@
  */
 
 //////////////////
+//CATEGORIES//////
+//////////////////
+
+/*
+id SERIAL PRIMARY KEY
+name VARCHAR(255) NOT NULL
+*/
+
+//////////////////
 //USERS///////////
 //////////////////
 
 /*
  id SERIAL PRIMARY KEY
  email VARCHAR(255) UNIQUE NOT NULL
+ password VARCHAR(255) NOT NULL
  */
 
 ///////////////////
@@ -35,5 +47,20 @@
 
 /*
   id SERIAL PRIMARY KEY
-  quantity_of_products
+  product_id INTEGER REFERENCES products(id)
+  price DECIMAL REFERENCES products(price)
+  order_id INTEGER REFERENCES orders(id)
+  quantity INTEGER NOT NULL
 */
+
+///////////////////
+//REVIEWS//////////
+///////////////////
+
+/*
+product_id INT REFERENCES product(id)
+user_id INT REFERENCES users(id)
+comment TEXT
+*/
+
+/////////////////////////////////////////////////////////
