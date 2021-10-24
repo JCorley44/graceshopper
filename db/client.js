@@ -6,7 +6,7 @@ const { SERVER_PORT, DB_PORT } = process.env;
 
 const CONNECTION_STRING = {
   host: "localhost",
-  user: "postgres",
+  user: "postgres",i
   port: DB_PORT,
   password: DB_PASS,
   database: "graceshopper",

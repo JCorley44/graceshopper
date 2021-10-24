@@ -1,5 +1,6 @@
 const { addCategory, getAllCategories } = require("./Category");
 const client = require("./client");
+const { createProduct } = require("./products");
 
 async function dropTables() {
   try {
@@ -66,6 +67,7 @@ async function createTables() {
   }
 }
 
+
 async function createInitialCategory() {
   const categories = ["anime", "auto", "model kits", "coding", "sports"];
 
@@ -73,10 +75,55 @@ async function createInitialCategory() {
     for (let category of categories) {
       await addCategory(category);
     }
+    
+async function createInitialProducts() {
+  try {
+    console.log("Starting to create products!");
+    const productsToCreate = [
+      {
+        title: "tv",
+        description: "50 inch tv",
+        price: "$100",
+        quantity: 50,
+        category_id: 12,
+      },
+      {
+        title: "chair",
+        description: "rocking chair",
+        price: "$100",
+        quantity: 50,
+        category_id: 11,
+      },
+      {
+        title: "vacumm",
+        description: "large vacuum cleaner",
+        price: "$100",
+        quantity: 50,
+        category_id: 10,
+      },
+      {
+        title: "bed",
+        description: "day bed",
+        price: "$100",
+        quantity: 50,
+        category_id: 13,
+      },
+      {
+        title: "dog kennel",
+        description: "large dog kennel",
+        price: "$100",
+        quantity: 50,
+        category_id: 14,
+      },
+    ];
+    const products = await Promise.all(
+      productsToCreate.map((product) => createProduct(product))
+    );
   } catch (error) {
     throw error;
   }
 }
+
 async function initialGetAllCategories() {
   try {
     await getAllCategories();
@@ -90,8 +137,9 @@ async function rebuildDB() {
     client.connect();
     await dropTables();
     await createTables();
+
     await createInitialCategory();
-    await initialGetAllCategories();
+    await createInitialProducts();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
