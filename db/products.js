@@ -29,7 +29,112 @@ createProduct({
   price: "$100",
   quantity: 50,
   category_id: 12,
-});
+}).then(console.log);
+
+async function getAllProducts() {
+  try {
+    const resp = await client.query(`
+    SELECT * FROM products
+    `);
+    const info = resp.rows;
+    console.log(info);
+    return info;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateProducts({
+  id,
+  title,
+  description,
+  price,
+  quantity,
+  category_id,
+}) {
+  try {
+    if (title) {
+      await client.query(
+        `
+    UPDATE products
+    SET title=$2
+    WHERE id=$1;
+    `,
+        [id, title]
+      );
+    }
+    if (description) {
+      await client.query(
+        `
+    UPDATE products
+    SET description=$2
+    WHERE id=$1;
+    `,
+        [id, description]
+      );
+    }
+    if (price) {
+      await client.query(
+        `
+    UPDATE products
+    SET price=$2
+    WHERE id=$1;
+    `,
+        [id, price]
+      );
+    }
+    if (quantity) {
+      await client.query(
+        `
+    UPDATE products
+    SET quantity=$2
+    WHERE id=$1;
+    `,
+        [id, quantity]
+      );
+    }
+    if (category_id) {
+      await client.query(
+        `
+    UPDATE products
+    SET category_id=$2
+    WHERE id=$1;
+    `,
+        [id, category_id]
+      );
+    }
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+  SELECT * FROM products WHERE id=$1
+  `,
+      [id]
+    );
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getProductById(id) {
+  try {
+    const resp = await client.query(
+      `
+  SELECT * FROM products WHERE id=$1
+  `,
+      [id]
+    );
+    const info = resp.rows[0];
+    console.log(info);
+    return info;
+  } catch (error) {
+    throw error;
+  }
+}
 module.exports = {
   createProduct,
+  getAllProducts,
+  updateProducts,
+  getProductById,
 };
