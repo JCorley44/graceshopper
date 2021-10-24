@@ -1,15 +1,16 @@
+const { addCategory, getAllCategories } = require("./Category");
 const client = require("./client");
 const { createProduct } = require("./products");
 
 async function dropTables() {
   try {
     await client.query(`
-        DROP TABLE IF EXISTS products;
-        DROP TABLE IF EXISTS categories;
-        DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS orders;
-        DROP TABLE IF EXISTS products_in_orders;
-        DROP TABLE IF EXISTS reviews;
+      DROP TABLE IF EXISTS reviews;
+      DROP TABLE IF EXISTS products_in_orders;
+      DROP TABLE IF EXISTS orders;
+      DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS products;
+      DROP TABLE IF EXISTS categories;
         `);
   } catch (error) {
     console.log("Error dropping tables");
@@ -25,7 +26,7 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL
         );
-        
+
         CREATE TABLE products (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) UNIQUE NOT NULL,
@@ -33,7 +34,7 @@ async function createTables() {
             price DECIMAL NOT NULL,
             quantity INTEGER NOT NULL,
             category_id INTEGER REFERENCES categories(id)
-        ); 
+        );
 
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
@@ -66,6 +67,15 @@ async function createTables() {
   }
 }
 
+
+async function createInitialCategory() {
+  const categories = ["anime", "auto", "model kits", "coding", "sports"];
+
+  try {
+    for (let category of categories) {
+      await addCategory(category);
+    }
+    
 async function createInitialProducts() {
   try {
     console.log("Starting to create products!");
@@ -113,11 +123,22 @@ async function createInitialProducts() {
     throw error;
   }
 }
+
+async function initialGetAllCategories() {
+  try {
+    await getAllCategories();
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
     await dropTables();
     await createTables();
+
+    await createInitialCategory();
     await createInitialProducts();
   } catch (error) {
     console.log("Error during rebuildDB");

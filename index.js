@@ -1,9 +1,10 @@
 const express = require("express");
-const client = require("./db/client");
+const { rebuildDB } = require("./db/seedData");
 
 const server = express();
 
 server.listen(process.env.SERVER_PORT || process.env.PORT, () => {
-  client.connect();
+  rebuildDB();
+  //client.connect();
   console.log("Server is up!");
 });

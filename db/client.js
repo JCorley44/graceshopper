@@ -1,11 +1,13 @@
 require("dotenv").config();
 const { Client } = require("pg");
 const { DB_PASS } = process.env;
+const { SERVER_PORT, DB_PORT } = process.env;
+//console.log(SERVER_PORT);
 
 const CONNECTION_STRING = {
   host: "localhost",
-  user: "postgres",
-  port: 5432,
+  user: "postgres",i
+  port: DB_PORT,
   password: DB_PASS,
   database: "graceshopper",
 };
