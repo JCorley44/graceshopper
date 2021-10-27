@@ -9,6 +9,7 @@ const productsRouter = require("express").Router();
 productsRouter.get("/", async (req, res) => {
   try {
     const products = await getAllProducts();
+    console.log(products);
     res.send(products);
   } catch (error) {
     res.status(404).send({ message: "Error retrieving all products" });
@@ -19,6 +20,7 @@ productsRouter.get("/:productId", async (req, res) => {
   try {
     const { productId } = req.params;
     const product = await getProductById(productId);
+    console.log(product);
     res.send(product);
   } catch (error) {
     res.status(404).send({ message: "Error retrieving this product" });
