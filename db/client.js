@@ -1,7 +1,6 @@
 require("dotenv").config();
 const { Client } = require("pg");
-const { DB_PASS } = process.env;
-const { SERVER_PORT, DB_PORT } = process.env;
+const { DB_PASS, DB_PORT } = process.env;
 //console.log(SERVER_PORT);
 
 const CONNECTION_STRING = {

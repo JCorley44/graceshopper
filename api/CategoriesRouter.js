@@ -31,4 +31,14 @@ categoriesRouter.get("/:categoryId", async (req, res, next) => {
   }
 });
 
+categoriesRouter.get("/:categoryName", async (req, res, next) => {
+  try {
+    const categoryName = req.params;
+    const category = await getCategoryByName(categoryName);
+    res.send(category);
+  } catch (error) {
+    throw error;
+  }
+});
+
 module.exports = categoriesRouter;
