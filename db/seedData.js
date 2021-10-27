@@ -1,15 +1,17 @@
 const { addCategory, getAllCategories } = require("./Category");
 const client = require("./client");
+const { createProduct } = require("./products");
 
 async function dropTables() {
   try {
+    console.log("dropping tables");
     await client.query(`
-      DROP TABLE IF EXISTS reviews;
-      DROP TABLE IF EXISTS products_in_orders;
-      DROP TABLE IF EXISTS orders;
-      DROP TABLE IF EXISTS users;
-      DROP TABLE IF EXISTS products;
-      DROP TABLE IF EXISTS categories;
+    DROP TABLE IF EXISTS reviews;
+    DROP TABLE IF EXISTS products_in_orders;
+    DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS categories;
         `);
   } catch (error) {
     console.log("Error dropping tables");
@@ -19,6 +21,7 @@ async function dropTables() {
 
 async function createTables() {
   try {
+    console.log("creating tables");
     await client.query(`
 
         CREATE TABLE categories(
@@ -77,6 +80,55 @@ async function createInitialCategory() {
     throw error;
   }
 }
+async function createInitialProducts() {
+  try {
+    console.log("Starting to create products!");
+    const productsToCreate = [
+      {
+        title: "tv",
+        description: "50 inch tv",
+        price: 100,
+        quantity: 50,
+        category_id: 1,
+      },
+      {
+        title: "chair",
+        description: "rocking chair",
+        price: 100,
+        quantity: 50,
+        category_id: 2,
+      },
+      {
+        title: "vacumm",
+        description: "large vacuum cleaner",
+        price: 100,
+        quantity: 50,
+        category_id: 3,
+      },
+      {
+        title: "bed",
+        description: "day bed",
+        price: 100,
+        quantity: 50,
+        category_id: 4,
+      },
+      {
+        title: "dog kennel",
+        description: "large dog kennel",
+        price: 100,
+        quantity: 50,
+        category_id: 5,
+      },
+    ];
+    const products = await Promise.all(
+      productsToCreate.map((product) => createProduct(product))
+    );
+    return products;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function initialGetAllCategories() {
   try {
     await getAllCategories();
@@ -90,8 +142,9 @@ async function rebuildDB() {
     client.connect();
     await dropTables();
     await createTables();
-    await createInitialCategory();
     await initialGetAllCategories();
+    await createInitialCategory();
+    await createInitialProducts();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
