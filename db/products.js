@@ -23,6 +23,9 @@ async function createProduct({
     throw error;
   }
 }
+
+//the error might have been here. please be careful when creating data. be sure to look at the tables for the 
+//datatypes for any input data
 createProduct({
   title: "tv",
   description: "50 inch tv",
