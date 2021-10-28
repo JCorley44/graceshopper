@@ -26,7 +26,7 @@ async function createProduct({
 createProduct({
   title: "tv",
   description: "50 inch tv",
-  price: "$100",
+  price: 100,
   quantity: 50,
   category_id: 12,
 }).then(console.log);
