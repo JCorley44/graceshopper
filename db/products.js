@@ -24,8 +24,7 @@ async function createProduct({
   }
 }
 
-
-//the error might have been here. please be careful when creating data. be sure to look at the tables for the 
+//the error might have been here. please be careful when creating data. be sure to look at the tables for the
 //datatypes for any input data
 createProduct({
   title: "tv",
@@ -34,7 +33,6 @@ createProduct({
   quantity: 50,
   category_id: 5,
 }).then(console.log);
-
 
 async function getAllProducts() {
   try {
