@@ -103,6 +103,7 @@ async function getAllUsers() {
   }
 }
 
+/*
 // Get user
 async function getUser({ username, password }) {
   try {
@@ -126,4 +127,38 @@ module.exports = {
   getUserByEmail,
   getUserById,
   getUserByUsername,
+*/
+// Verify User.
+// This function is called by the usersRouter.post login function.
+// Email and password are passed in. getUserByEmail is called to get the hashed password from the DB.
+// Password is compared to hashedpassword and returns true or false.
+// This value is passed back to the login function.
+async function verifyUser(email, password) {
+	console.log("Start of verifyUser");
+	const user = await getUserByEmail(email);
+	if (user === undefined) {
+		return undefined;
+	}
+	if (user === false) {
+		return false;
+	} else {
+		const hashedPassword = user.password;
+		try {
+			const isMatch = await bcrypt.compare(password, hashedPassword);
+			console.log(isMatch);
+			return isMatch;
+		} catch (error) {
+			console.log("Error in verifyUser");
+			throw error;
+		}
+	}
+}
+
+module.exports = {
+	createUser,
+	getAllUsers,
+	getUserByEmail,
+	getUserById,
+	getUserByUsername,
+	verifyUser,
 };
