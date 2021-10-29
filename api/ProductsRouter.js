@@ -2,6 +2,7 @@ const {
   getAllProducts,
   updateProducts,
   getProductById,
+  createProduct,
 } = require("../db/products");
 
 const productsRouter = require("express").Router();
@@ -25,6 +26,21 @@ productsRouter.get("/:productId", async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: "Error retrieving this product" });
   }
+});
+
+productsRouter.post("/", async (req, res, next) => {
+  const { title, description, price, quantity, category_id } = req.body;
+  if (!title || !description || !price || !quantity || !category_id) {
+    return next({ error: "Missing input field" });
+  }
+  const newProduct = await createProduct({
+    title,
+    description,
+    price,
+    quantity,
+    category_id,
+  });
+  res.send(newProduct);
 });
 
 productsRouter.patch("/:productId", async (req, res) => {
