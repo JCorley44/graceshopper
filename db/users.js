@@ -31,16 +31,17 @@ async function createUser({ email, username, password }) {
 // Get user by username
 
 async function getUserByUsername(username) {
+	console.log("Start get user by username");
 	try {
-		const {
-			rows: [user],
-		} = await client.query(
+		const user = await client.query(
 			`
-		SELECT * FROM users
-		WHERE username=$1
-		`,
+        SELECT * FROM users
+        WHERE username=$1;
+        `,
 			[username]
 		);
+
+		return user.rows[0];
 	} catch (error) {
 		console.log("Error getting user by username");
 		throw error;
@@ -51,17 +52,17 @@ async function getUserByUsername(username) {
 
 async function getUserByEmail(email) {
 	try {
-		const {
-			rows: [user],
-		} = await client.query(
+		const user = await client.query(
 			`
-        SELECT * FROM users
-        WHERE email=$1
+        SELECT *
+		FROM users
+        WHERE email=$1;
         `,
 			[email]
 		);
+		console.log("Line 63 in getuserbyemail", user.rows[0]);
 
-		return user;
+		return user.rows[0];
 	} catch (error) {
 		console.log("error getting user by email");
 		throw error;
@@ -103,27 +104,37 @@ async function getAllUsers() {
 	}
 }
 
-// Get user
-async function getUser({ username, password }) {
-	try {
-		const user = await getUserByUsername(username);
+// Verify User.
+// This function is called by the usersRouter.post login function.
+// Email and password are passed in. getUserByEmail is called to get the hashed password from the DB.
+// Password is compared to hashedpassword and returns true or false.
+// This value is passed back to the login function.
+async function verifyUser(email, password) {
+	console.log("Start of verifyUser");
+	const user = await getUserByEmail(email);
+	if (user === undefined) {
+		return undefined;
+	}
+	if (user === false) {
+		return false;
+	} else {
 		const hashedpassword = user.password;
-		const isMatch = await bcrypt.compare(password, hashedpassword);
-		if (isMatch) {
-			delete user.password;
-			return user;
+		try {
+			const isMatch = await bcrypt.compare(password, hashedpassword);
+			console.log(isMatch);
+			return isMatch;
+		} catch (error) {
+			console.log("Error in verifyUser");
+			throw error;
 		}
-	} catch (error) {
-		console.log("error in get user");
-		throw error;
 	}
 }
 
 module.exports = {
 	createUser,
 	getAllUsers,
-	getUser,
 	getUserByEmail,
 	getUserById,
 	getUserByUsername,
+	verifyUser,
 };
