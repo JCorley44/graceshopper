@@ -1,10 +1,11 @@
-const { addCategory, getAllCategories } = require("./Category");
+const { addCategory, getAllCategories } = require("./category");
 const client = require("./client");
 const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
-const { createOrder } = require("./Orders");
+const { createOrder } = require("./orders");
+const { createReview } = require("./reviews");
 
 async function dropTables() {
 	try {
@@ -44,7 +45,7 @@ async function createTables() {
 
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-		      	username VARCHAR(255) UNIQUE NOT NULL,
+		    username VARCHAR(255) UNIQUE NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL
         );
@@ -64,9 +65,10 @@ async function createTables() {
         );
 
         CREATE TABLE reviews(
+            id SERIAL PRIMARY KEY,
             product_id INT REFERENCES products(id),
             user_id INT REFERENCES users(id),
-            comment TEXT
+            content TEXT NOT NULL
         );
 
         `);
@@ -177,6 +179,22 @@ async function createInitialProducts() {
 	}
 }
 
+async function createInitialReviews() {
+	console.log("Starting to create initial reviews.");
+	const reviewsToCreate = [
+		{ user_id: 2, product_id: 3, content: "This thing sucks." },
+		{
+			user_id: 1,
+			product_id: 3,
+			content: "Bought this as a Christmas gift for Thanos.",
+		},
+	];
+
+	const reviews = await Promise.all(
+		reviewsToCreate.map((review) => createReview(review))
+	);
+}
+
 async function initialGetAllCategories() {
 	try {
 		await getAllCategories();
@@ -267,6 +285,7 @@ async function rebuildDB() {
 		await createInitialUsers();
 		await createInitialOrders();
 		await createInitialProductsInOrders();
+		await createInitialReviews();
 	} catch (error) {
 		console.log("Error during rebuildDB");
 		throw error;
