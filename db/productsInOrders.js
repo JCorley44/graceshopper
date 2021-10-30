@@ -20,11 +20,5 @@ async function addProductsToOrder({ product_id, price, order_id, quantity }) {
     throw error;
   }
 }
-addProductsToOrder({
-  product_id: 1,
-  order_id: 1,
-  price: 100.0,
-  quantity: 1,
-}).then(console.log);
 
 module.exports = { addProductsToOrder };

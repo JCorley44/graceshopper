@@ -16,7 +16,7 @@ server.use(express.json());
 server.use("/api", apiRouter);
 
 server.listen(process.env.SERVER_PORT || process.env.PORT, () => {
-  //rebuildDB();
+  // rebuildDB();
   client.connect();
   console.log("Server is up!");
 });

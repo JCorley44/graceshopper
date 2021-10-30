@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
+const { createOrder } = require("./Orders");
 
 async function dropTables() {
   try {
@@ -50,6 +51,7 @@ async function createTables() {
         CREATE TABLE orders(
             id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(id),
+            is_purchase BOOLEAN DEFAULT false
 			
         );
 
@@ -187,15 +189,19 @@ async function createInitialOrders() {
   const orders = [
     {
       user_id: 1,
+      is_purchase: true,
     },
     {
       user_id: 2,
+      is_purchase: false,
     },
     {
       user_id: 3,
+      is_purchase: true,
     },
     {
       user_id: 4,
+      is_purchase: false,
     },
   ];
   try {
@@ -214,38 +220,40 @@ async function createInitialProductsInOrders() {
       product_id: 1,
       price: 100.0,
       order_id: 1,
-      quantity: 1,
+      quantity: 40,
     },
     {
       product_id: 2,
       price: 125.0,
       order_id: 2,
-      quantity: 2,
+      quantity: 50,
     },
     {
       product_id: 3,
       price: 150.0,
       order_id: 3,
-      quantity: 3,
+      quantity: 60,
     },
     {
       product_id: 4,
       price: 175.0,
       order_id: 4,
-      quantity: 4,
+      quantity: 65,
     },
     {
       product_id: 5,
       price: 200.0,
-      order_id: 5,
-      quantity: 5,
+      order_id: 1,
+      quantity: 70,
     },
   ];
   try {
+    console.log("starting to create products_in_orders");
     for (let productInOrder of productsInOrders) {
       await addProductsToOrder(productInOrder);
     }
   } catch (error) {
+    console.log("failed to create products_in_orders");
     throw error;
   }
 }
