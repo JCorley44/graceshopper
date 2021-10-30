@@ -25,7 +25,7 @@ async function updateOrder(id) {
     WHERE id=$1
     RETURNING *;
     `,
-      [id, user_id]
+      [id]
     );
 
     const order = resp.rows[0];

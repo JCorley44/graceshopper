@@ -49,11 +49,10 @@ async function createTables() {
             password VARCHAR(255) NOT NULL
         );
         CREATE TABLE orders(
-            id SERIAL PRIMARY KEY,
-            user_id INTEGER REFERENCES users(id),
-            is_purchase BOOLEAN DEFAULT false
-			
-        );
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER REFERENCES users(id),
+          is_purchase BOOLEAN DEFAULT false
+      );
 
         CREATE TABLE products_in_orders(
             id SERIAL PRIMARY KEY,
@@ -165,7 +164,7 @@ async function createInitialProducts() {
         description: "large dog kennel",
         price: 100,
         quantity: 50,
-        category_id: 5,
+        category_id: 1,
       },
     ];
     const products = await Promise.all(
