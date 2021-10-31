@@ -20,6 +20,25 @@ async function createReview({ product_id, user_id, content }) {
 	}
 }
 
+// Get Reviews By Product id.
+
+async function getReviewsByProductId(product_id) {
+	console.log("Getting the Reviews");
+	try {
+		const reviews = await client.query(
+			`
+    SELECT * FROM reviews
+    WHERE product_id = $1;
+    `,
+			[product_id]
+		);
+
+		return reviews.rows;
+	} catch (error) {
+		console.log("Error in getting the reviews.");
+	}
+}
+
 //Update Review
 
 async function editReview(reviewId, newContent) {
@@ -66,4 +85,5 @@ module.exports = {
 	createReview,
 	editReview,
 	deleteReview,
+	getReviewsByProductId,
 };
