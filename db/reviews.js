@@ -53,7 +53,8 @@ async function editReview(reviewId, newContent) {
 			[reviewId, newContent]
 		);
 
-		return edit;
+		console.log(edit.rows);
+		return edit.rows;
 	} catch (error) {
 		console.log("Error updating Review");
 		throw error;
@@ -74,7 +75,7 @@ async function deleteReview(id) {
 			[id]
 		);
 
-		return remove;
+		return remove.rows;
 	} catch (error) {
 		console.log("Error in Deleting review");
 		throw error;
