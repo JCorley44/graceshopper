@@ -1,10 +1,10 @@
-const { addCategory, getAllCategories } = require("./Category");
+const { addCategory, getAllCategories } = require("./category");
 const client = require("./client");
 const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
-const { createOrder } = require("./Orders");
+const { createOrder, getPurchaseOrders } = require("./orders");
 
 async function dropTables() {
   try {
@@ -257,9 +257,38 @@ async function createInitialProductsInOrders() {
     throw error;
   }
 }
+
+// async function createInitialPurchaseOrders() {
+//   const purchasedOrders = [
+//     {
+//       user_id: 1,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 2,
+//       order_id: 4,
+//     },
+//     {
+//       user_id: 3,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 4,
+//       order_id: 2,
+//     },
+//   ];
+//   try {
+//     console.log("Starting purchased_orders");
+//     for (let purchasedOrder of purchasedOrders) {
+//       await getPurchaseOrders(purchasedOrder);
+//     }
+//   } catch (error) {
+//     console.log("Failed to get purchase orders");
+//     throw error;
+//   }
+// }
 async function rebuildDB() {
   try {
-    client.connect();
     await dropTables();
     await createTables();
     await initialGetAllCategories();
@@ -268,14 +297,11 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialOrders();
     await createInitialProductsInOrders();
+    // await createInitialPurchaseOrders();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
   }
 }
 
-// rebuildDB();
-
-module.exports = {
-  rebuildDB,
-};
+rebuildDB();

@@ -16,7 +16,26 @@ async function createOrder({ user_id, is_purchase }) {
   }
 }
 
-async function updateOrder(id) {
+async function updateOrder({ id, quantity }) {
+  console.log("Updating Order");
+  try {
+    const update = await client.query(
+      `
+    UPDATE orders
+    SET quantity = $2
+    WHERE id = $1;
+    `,
+      [id, quantity]
+    );
+    console.log(update.rows);
+    return update.rows;
+  } catch (error) {
+    console.log("Error updating order");
+    throw error;
+  }
+}
+
+async function completeOrder(id) {
   try {
     const resp = await client.query(
       `
@@ -25,11 +44,24 @@ async function updateOrder(id) {
     WHERE id=$1
     RETURNING *;
     `,
-      [id, user_id]
+      [id]
     );
 
     const order = resp.rows[0];
     return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAllOrders() {
+  try {
+    const resp = await client.query(`
+    SELECT * FROM orders
+    `);
+    const info = resp.rows;
+    console.log("hello");
+    return info;
   } catch (error) {
     throw error;
   }
@@ -84,4 +116,12 @@ async function getCart(user_id) {
     throw error;
   }
 }
-module.exports = { createOrder, updateOrder, getPurchaseOrders, getCart };
+
+module.exports = {
+  createOrder,
+  completeOrder,
+  getPurchaseOrders,
+  getCart,
+  getAllOrders,
+  updateOrder,
+};

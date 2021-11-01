@@ -1,4 +1,5 @@
-const { addProductsToOrder } = require("../db/productsInOrders");
+const client = require("../db/client");
+const { addProductsToOrder, deleteCart } = require("../db/productsInOrders");
 
 const productsInOrdersRouter = require("express").Router();
 
@@ -14,5 +15,12 @@ productsInOrdersRouter.post("/", async (req, res, next) => {
     quantity,
   });
   res.send(addProduct);
+});
+
+productsInOrdersRouter.delete("/delete/:order_id", async (req, res) => {
+  const order_id = req.params.order_id;
+  console.log(order_id);
+  const deleteOrder = await deleteCart(order_id);
+  res.send(deleteOrder);
 });
 module.exports = productsInOrdersRouter;
