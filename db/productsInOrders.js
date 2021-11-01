@@ -21,4 +21,37 @@ async function addProductsToOrder({ product_id, price, order_id, quantity }) {
   }
 }
 
-module.exports = { addProductsToOrder };
+async function deleteProdctInOrders(product_id) {
+  try {
+    const cart = await client.query(
+      `
+    DELETE FROM products_in_orders
+    WHERE product_id = $1
+    RETURNING *;
+    `,
+      [product_id]
+    );
+    return cart.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteCart(order_id) {
+  try {
+    const cart = await client.query(
+      `
+    DELETE FROM products_in_orders 
+    WHERE order_id = $1
+    RETURNING *;
+    `,
+      [order_id]
+    );
+    console.log(cart.rows);
+    return cart.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { addProductsToOrder, deleteProdctInOrders, deleteCart };

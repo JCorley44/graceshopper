@@ -1,9 +1,9 @@
-const usersRouter = require("./UsersRouter");
-const productsRouter = require("./ProductsRouter");
-const categoriesRouter = require("./CategoriesRouter");
-const ordersRouter = require("./OrdersRouter");
+const usersRouter = require("./usersRouter");
+const productsRouter = require("./productsRouter");
+const categoriesRouter = require("./categoriesRouter");
+const ordersRouter = require("./ordersRouter");
 
-const productsInOrdersRouter = require("./ProductsInOrdersRouter");
+const productsInOrdersRouter = require("./productsInOrdersRouter");
 
 const reviewsRouter = require("./ReviewsRouter");
 const apiRouter = require("express").Router();
@@ -13,6 +13,7 @@ apiRouter.use("/products", productsRouter);
 apiRouter.use("/categories", categoriesRouter);
 apiRouter.use("/orders", ordersRouter);
 apiRouter.use("/reviews", reviewsRouter);
+apiRouter.use("/products_in_orders", productsInOrdersRouter);
 apiRouter.get("health", (req, res) => {
   res.send({ message: "Healthy!" });
 });

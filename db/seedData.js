@@ -4,7 +4,10 @@ const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
-const { createOrder } = require("./orders");
+
+const { createOrder, getPurchaseOrders } = require("./orders");
+
+
 const { createReview } = require("./reviews");
 
 async function dropTables() {
@@ -275,7 +278,40 @@ async function createInitialProductsInOrders() {
 		throw error;
 	}
 }
+
+// async function createInitialPurchaseOrders() {
+//   const purchasedOrders = [
+//     {
+//       user_id: 1,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 2,
+//       order_id: 4,
+//     },
+//     {
+//       user_id: 3,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 4,
+//       order_id: 2,
+//     },
+//   ];
+//   try {
+//     console.log("Starting purchased_orders");
+//     for (let purchasedOrder of purchasedOrders) {
+//       await getPurchaseOrders(purchasedOrder);
+//     }
+//   } catch (error) {
+//     console.log("Failed to get purchase orders");
+//     throw error;
+//   }
+// }
 async function rebuildDB() {
+
+  
+
 	try {
 		await dropTables();
 		await createTables();
@@ -290,6 +326,7 @@ async function rebuildDB() {
 		console.log("Error during rebuildDB");
 		throw error;
 	}
+
 }
 
 rebuildDB();
