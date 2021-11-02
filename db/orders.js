@@ -21,9 +21,10 @@ async function updateOrder({ id, quantity }) {
   try {
     const update = await client.query(
       `
-    UPDATE orders
+    UPDATE products_in_orders
     SET quantity = $2
-    WHERE id = $1;
+    WHERE id = $1
+    RETURNING *;
     `,
       [id, quantity]
     );
@@ -80,7 +81,7 @@ async function getPurchaseOrders(user_id) {
     for (let order of orders) {
       const resp = await client.query(
         `
-      SELECT name FROM  products LEFT JOIN products_in_orders ON "order_id" = $1;
+      SELECT title FROM  products LEFT JOIN products_in_orders ON "order_id" = $1;
       `,
         [order.id]
       );
