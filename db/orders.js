@@ -16,7 +16,27 @@ async function createOrder({ user_id, is_purchase }) {
   }
 }
 
-async function updateOrder(id) {
+async function updateOrder({ id, quantity }) {
+  console.log("Updating Order");
+  try {
+    const update = await client.query(
+      `
+    UPDATE products_in_orders
+    SET quantity = $2
+    WHERE id = $1
+    RETURNING *;
+    `,
+      [id, quantity]
+    );
+    console.log(update.rows);
+    return update.rows;
+  } catch (error) {
+    console.log("Error updating order");
+    throw error;
+  }
+}
+
+async function completeOrder(id) {
   try {
     const resp = await client.query(
       `
@@ -35,6 +55,19 @@ async function updateOrder(id) {
   }
 }
 
+async function getAllOrders() {
+  try {
+    const resp = await client.query(`
+    SELECT * FROM orders
+    `);
+    const info = resp.rows;
+    console.log("hello");
+    return info;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getPurchaseOrders(user_id) {
   try {
     const resp = await client.query(
@@ -48,7 +81,7 @@ async function getPurchaseOrders(user_id) {
     for (let order of orders) {
       const resp = await client.query(
         `
-      SELECT name FROM  products LEFT JOIN products_in_orders ON "order_id" = $1;
+      SELECT title FROM  products LEFT JOIN products_in_orders ON "order_id" = $1;
       `,
         [order.id]
       );
@@ -84,4 +117,12 @@ async function getCart(user_id) {
     throw error;
   }
 }
-module.exports = { createOrder, updateOrder, getPurchaseOrders, getCart };
+
+module.exports = {
+  createOrder,
+  completeOrder,
+  getPurchaseOrders,
+  getCart,
+  getAllOrders,
+  updateOrder,
+};

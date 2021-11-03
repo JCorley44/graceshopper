@@ -4,7 +4,10 @@ const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
-const { createOrder } = require("./orders");
+
+const { createOrder, getPurchaseOrders } = require("./orders");
+
+const { createReview } = require("./reviews");
 
 async function dropTables() {
   try {
@@ -44,28 +47,29 @@ async function createTables() {
 
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-			username VARCHAR(255) UNIQUE NOT NULL,
+		    username VARCHAR(255) UNIQUE NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL
         );
+
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
           user_id INTEGER REFERENCES users(id),
           is_purchase BOOLEAN DEFAULT false
-      );
+        );
 
         CREATE TABLE products_in_orders(
             id SERIAL PRIMARY KEY,
             product_id INTEGER REFERENCES products(id),
-            price DECIMAL,
             order_id INTEGER REFERENCES orders(id),
             quantity INTEGER NOT NULL
         );
 
         CREATE TABLE reviews(
+            id SERIAL PRIMARY KEY,
             product_id INT REFERENCES products(id),
             user_id INT REFERENCES users(id),
-            comment TEXT
+            content TEXT NOT NULL
         );
 
         `);
@@ -176,6 +180,22 @@ async function createInitialProducts() {
   }
 }
 
+async function createInitialReviews() {
+  console.log("Starting to create initial reviews.");
+  const reviewsToCreate = [
+    { user_id: 2, product_id: 3, content: "This thing sucks." },
+    {
+      user_id: 1,
+      product_id: 3,
+      content: "Bought this as a Christmas gift for Thanos.",
+    },
+  ];
+
+  const reviews = await Promise.all(
+    reviewsToCreate.map((review) => createReview(review))
+  );
+}
+
 async function initialGetAllCategories() {
   try {
     await getAllCategories();
@@ -217,31 +237,31 @@ async function createInitialProductsInOrders() {
   const productsInOrders = [
     {
       product_id: 1,
-      price: 100.0,
+
       order_id: 1,
       quantity: 40,
     },
     {
       product_id: 2,
-      price: 125.0,
+
       order_id: 2,
       quantity: 50,
     },
     {
       product_id: 3,
-      price: 150.0,
+
       order_id: 3,
       quantity: 60,
     },
     {
       product_id: 4,
-      price: 175.0,
+
       order_id: 4,
       quantity: 65,
     },
     {
       product_id: 5,
-      price: 200.0,
+
       order_id: 1,
       quantity: 70,
     },
@@ -256,6 +276,36 @@ async function createInitialProductsInOrders() {
     throw error;
   }
 }
+
+// async function createInitialPurchaseOrders() {
+//   const purchasedOrders = [
+//     {
+//       user_id: 1,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 2,
+//       order_id: 4,
+//     },
+//     {
+//       user_id: 3,
+//       order_id: 1,
+//     },
+//     {
+//       user_id: 4,
+//       order_id: 2,
+//     },
+//   ];
+//   try {
+//     console.log("Starting purchased_orders");
+//     for (let purchasedOrder of purchasedOrders) {
+//       await getPurchaseOrders(purchasedOrder);
+//     }
+//   } catch (error) {
+//     console.log("Failed to get purchase orders");
+//     throw error;
+//   }
+// }
 async function rebuildDB() {
   try {
     await dropTables();
@@ -266,6 +316,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialOrders();
     await createInitialProductsInOrders();
+    await createInitialReviews();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;

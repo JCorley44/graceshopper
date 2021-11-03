@@ -13,6 +13,7 @@ apiRouter.use("/products", productsRouter);
 apiRouter.use("/categories", categoriesRouter);
 apiRouter.use("/orders", ordersRouter);
 apiRouter.use("/reviews", reviewsRouter);
+apiRouter.use("/products_in_orders", productsInOrdersRouter);
 apiRouter.get("health", (req, res) => {
   res.send({ message: "Healthy!" });
 });
