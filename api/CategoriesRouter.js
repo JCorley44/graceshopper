@@ -4,7 +4,7 @@ const {
   getCategoryByName,
   getCategoryById,
   addCategory,
-} = require("../db/Category");
+} = require("../db/category");
 
 //getting all categories
 categoriesRouter.get("/", async (req, res, next) => {
@@ -38,6 +38,18 @@ categoriesRouter.get("/:categoryName", async (req, res, next) => {
     res.send(category);
   } catch (error) {
     throw error;
+  }
+});
+
+categoriesRouter.post("/new-category", async (req, res, next) => {
+  const categoryName = req.body.categoryName;
+  try {
+    const newCategory = await addCategory(categoryName);
+    res.send(newCategory);
+  } catch (error) {
+    res
+      .status(404)
+      .send({ message: "could not create category", error: error });
   }
 });
 

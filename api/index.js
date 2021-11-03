@@ -5,7 +5,7 @@ const ordersRouter = require("./ordersRouter");
 
 const productsInOrdersRouter = require("./productsInOrdersRouter");
 
-const reviewsRouter = require("./ReviewsRouter");
+const reviewsRouter = require("./reviewsRouter");
 const apiRouter = require("express").Router();
 
 apiRouter.use("/users", usersRouter);
