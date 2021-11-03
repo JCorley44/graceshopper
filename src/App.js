@@ -10,33 +10,51 @@ import { useEffect, useState } from "react";
 const baseURL = `http://localhost:3000/api/`;
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+	const [user, setUser] = useState(null);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [token, setToken] = useState(null);
 
-  async function fetchUser() {
-    const token = localStorage.getItem("token");
-  }
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			return setUser(null);
+		}
+		const fetchUser = async () => {
+			const response = await fetch(`${baseURL}/users/me`, {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			const info = await response.json();
+			setUser({ id: info.id, username: info.username, token });
+		};
+		fetchUser();
+	}, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-  }, []);
-  return (
-    <div className="App">
-      <Navbar />
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route path="/register">
-        <Register user={user} setUser={setUser} />
-      </Route>
-      <Route path="/sign-in">
-        <SignIn />
-      </Route>
-      <Route path="/my-orders">
-        <MyOrders />
-      </Route>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Navbar />
+			<Route exact path="/">
+				<Home />
+			</Route>
+			<Route path="/register">
+				<Register
+					user={user}
+					setUser={setUser}
+					baseURL={baseURL}
+					errorMessage={errorMessage}
+					setErrorMessage={setErrorMessage}
+				/>
+			</Route>
+			<Route path="/sign-in">
+				<SignIn />
+			</Route>
+			<Route path="/my-orders">
+				<MyOrders />
+			</Route>
+		</div>
+	);
 }
 
 export default App;
