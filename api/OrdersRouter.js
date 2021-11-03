@@ -1,4 +1,4 @@
-const { updateOrder } = require("../db/Orders");
+const { updateOrder } = require("../db/orders");
 
 const ordersRouter = require("express").Router();
 

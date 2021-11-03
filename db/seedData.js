@@ -1,10 +1,10 @@
-const { addCategory, getAllCategories } = require("./Category");
+const { addCategory, getAllCategories } = require("./category");
 const client = require("./client");
 const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
 const { createUser } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
-const { createOrder } = require("./Orders");
+const { createOrder } = require("./orders");
 
 async function dropTables() {
   try {
@@ -258,7 +258,6 @@ async function createInitialProductsInOrders() {
 }
 async function rebuildDB() {
   try {
-    client.connect();
     await dropTables();
     await createTables();
     await initialGetAllCategories();
@@ -273,8 +272,4 @@ async function rebuildDB() {
   }
 }
 
-// rebuildDB();
-
-module.exports = {
-  rebuildDB,
-};
+rebuildDB();

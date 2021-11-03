@@ -1,11 +1,11 @@
-const usersRouter = require("./UsersRouter");
-const productsRouter = require("./ProductsRouter");
-const categoriesRouter = require("./CategoriesRouter");
-const ordersRouter = require("./OrdersRouter");
+const usersRouter = require("./usersRouter");
+const productsRouter = require("./productsRouter");
+const categoriesRouter = require("./categoriesRouter");
+const ordersRouter = require("./ordersRouter");
 
-const productsInOrdersRouter = require("./ProductsInOrdersRouter");
+const productsInOrdersRouter = require("./productsInOrdersRouter");
 
-const reviewsRouter = require("./ReviewsRouter");
+const reviewsRouter = require("./reviewsRouter");
 const apiRouter = require("express").Router();
 
 apiRouter.use("/users", usersRouter);
