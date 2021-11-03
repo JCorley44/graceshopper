@@ -1,7 +1,6 @@
 import "../homeStyles";
 import { homeStyles } from "../homeStyles";
 import RelatedProducts from "./RelatedProducts";
-const baseURL = `http://localhost:3000/api/`;
 
 function Home() {
   return (

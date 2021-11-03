@@ -13,7 +13,7 @@ function Navbar(props) {
       {!props.user && (
         <>
           <Link to="/sign-in">Sign In</Link> |
-          <Link to="/register">Register</Link> |
+          <Link to="/register">Register</Link>
         </>
       )}
       {props.user && (
