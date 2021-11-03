@@ -2,7 +2,7 @@ const client = require("./client");
 
 //Function for creating the review.
 async function createReview({ product_id, user_id, content }) {
-	console.log("Review Start", product_id, user_id, content);
+	// console.log("Review Start", product_id, user_id, content);
 
 	try {
 		const response = await client.query(
@@ -42,7 +42,7 @@ async function getReviewsByProductId(product_id) {
 //Update Review
 
 async function editReview(reviewId, newContent) {
-	console.log("Editing Review");
+	// console.log("Editing Review");
 	try {
 		const edit = await client.query(
 			`
@@ -53,7 +53,7 @@ async function editReview(reviewId, newContent) {
 			[reviewId, newContent]
 		);
 
-		console.log(edit.rows);
+		// console.log(edit.rows);
 		return edit.rows;
 	} catch (error) {
 		console.log("Error updating Review");
@@ -64,7 +64,7 @@ async function editReview(reviewId, newContent) {
 //Delete Review
 
 async function deleteReview(id) {
-	console.log("Start delete review");
+	// console.log("Start delete review");
 	try {
 		const remove = await client.query(
 			`
