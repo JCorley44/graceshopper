@@ -34,7 +34,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Navbar />
+			<Navbar user={user} setUser={setUser} />
 			<Route exact path="/">
 				<Home />
 			</Route>
@@ -48,7 +48,13 @@ function App() {
 				/>
 			</Route>
 			<Route path="/sign-in">
-				<SignIn />
+				<SignIn
+					user={user}
+					setUser={setUser}
+					baseURL={baseURL}
+					errorMessage={errorMessage}
+					setErrorMessage={setErrorMessage}
+				/>
 			</Route>
 			<Route path="/my-orders">
 				<MyOrders />

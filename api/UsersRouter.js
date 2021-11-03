@@ -54,7 +54,9 @@ usersRouter.post("/login", async (req, res) => {
 				process.env.JWT_SECRET
 			);
 			console.log("user at line 30 /login", user);
-			res.send({ message: "User is successfully logged in", token: token });
+			user.token = token;
+			user.message = "User is successfully logged in";
+			res.send(user);
 		} else {
 			res.status(401).send({ message: "Password entered is not valid." });
 		}
