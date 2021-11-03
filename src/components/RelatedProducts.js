@@ -25,7 +25,7 @@ function RelatedProducts() {
       <div>
         {relatedItemList.map((product) => {
           return (
-            <div>
+            <div key={product.id}>
               <h4>{product.title}</h4>
               <h5>{product.price}</h5>
             </div>
