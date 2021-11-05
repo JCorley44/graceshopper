@@ -32,6 +32,7 @@ function App() {
 		fetchUser();
 	}, []);
 
+	// Random comment.
 	return (
 		<div className="App">
 			<Navbar user={user} setUser={setUser} />
