@@ -19,7 +19,7 @@ function RelatedProducts() {
     console.log(info);
     setRelatedItemList(info);
   }
-  console.log(relatedItemList);
+  //console.log(relatedItemList);
   return (
     <>
       <div>
