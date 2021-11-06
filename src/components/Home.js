@@ -2,10 +2,15 @@ import "../homeStyles";
 import { homeStyles } from "../homeStyles";
 import RelatedProducts from "./RelatedProducts";
 
-function Home() {
+function Home(props) {
+  console.log(props.user);
   return (
     <div>
-      Currently on Home Page
+      {props.user ? (
+        <h2>Welcome {props.user.username}!</h2>
+      ) : (
+        <h2>Welcome Stranger!</h2>
+      )}
       <div id="main" style={homeStyles.main}>
         <div id="related-products" style={homeStyles.relatedProducts}>
           {" "}
