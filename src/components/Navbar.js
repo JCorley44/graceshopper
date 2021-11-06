@@ -47,7 +47,8 @@ function Navbar(props) {
       searchedMatches(product, search)
     );
     //have the array of related products to search
-    console.log(filteredSearch);
+    props.setSearchedProducts(filteredSearch);
+    history.push("/search-results");
   };
   return (
     <div>
@@ -75,7 +76,8 @@ function Navbar(props) {
           </Link>
         </>
       )}
-      | <Link to="/my-orders">My Orders</Link>
+      | <Link to="/my-cart">My Cart</Link>|{" "}
+      <Link to="/my-orders">My Orders</Link>
     </div>
   );
 }
