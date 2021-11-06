@@ -6,11 +6,14 @@ import Register from "./components/Register";
 import SignIn from "./components/SignIn";
 import MyOrders from "./components/MyOrders";
 import { useEffect, useState } from "react";
+import ProductsPage from "./components/ProductsPage";
+import MyCart from "./components/MyCart";
 
 const baseURL = `http://localhost:3000/api/`;
 
 function App() {
   const [user, setUser] = useState(null);
+  const [searchedProducts, setSearchedProducts] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState(null);
 
@@ -35,7 +38,12 @@ function App() {
   // Random comment.
   return (
     <div className="App">
-      <Navbar user={user} setUser={setUser} baseURL={baseURL} />
+      <Navbar
+        user={user}
+        setUser={setUser}
+        baseURL={baseURL}
+        setSearchedProducts={setSearchedProducts}
+      />
       <Route exact path="/">
         <Home user={user} />
       </Route>
@@ -59,6 +67,12 @@ function App() {
       </Route>
       <Route path="/my-orders">
         <MyOrders />
+      </Route>
+      <Route path="/search-results">
+        <ProductsPage searchedProducts={searchedProducts} />
+      </Route>
+      <Route path="/my-cart">
+        <MyCart />
       </Route>
     </div>
   );
