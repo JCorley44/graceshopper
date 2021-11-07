@@ -1,136 +1,136 @@
 const client = require("./client");
 
 async function createProduct({
-  title,
-  description,
-  price,
-  quantity,
-  category_id,
+	title,
+	description,
+	price,
+	quantity,
+	category_id,
 }) {
-  try {
-    const resp = await client.query(
-      `
+	try {
+		const resp = await client.query(
+			`
         INSERT INTO products
         (title, description, price, quantity, category_id)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
         `,
-      [title, description, price, quantity, category_id]
-    );
-    console.log(resp);
-    return resp.rows[0];
-  } catch (error) {
-    throw error;
-  }
+			[title, description, price, quantity, category_id]
+		);
+		// console.log(resp);
+		return resp.rows[0];
+	} catch (error) {
+		throw error;
+	}
 }
 
 //the error might have been here. please be careful when creating data. be sure to look at the tables for the
 //datatypes for any input data
 
 async function getAllProducts() {
-  try {
-    const resp = await client.query(`
+	try {
+		const resp = await client.query(`
     SELECT * FROM products
     `);
-    const info = resp.rows;
-    console.log(info);
-    return info;
-  } catch (error) {
-    throw error;
-  }
+		const info = resp.rows;
+		// console.log(info);
+		return info;
+	} catch (error) {
+		throw error;
+	}
 }
 
 async function updateProducts({
-  id,
-  title,
-  description,
-  price,
-  quantity,
-  category_id,
+	id,
+	title,
+	description,
+	price,
+	quantity,
+	category_id,
 }) {
-  try {
-    if (title) {
-      await client.query(
-        `
+	try {
+		if (title) {
+			await client.query(
+				`
     UPDATE products
     SET title=$2
     WHERE id=$1;
     `,
-        [id, title]
-      );
-    }
-    if (description) {
-      await client.query(
-        `
+				[id, title]
+			);
+		}
+		if (description) {
+			await client.query(
+				`
     UPDATE products
     SET description=$2
     WHERE id=$1;
     `,
-        [id, description]
-      );
-    }
-    if (price) {
-      await client.query(
-        `
+				[id, description]
+			);
+		}
+		if (price) {
+			await client.query(
+				`
     UPDATE products
     SET price=$2
     WHERE id=$1;
     `,
-        [id, price]
-      );
-    }
-    if (quantity) {
-      await client.query(
-        `
+				[id, price]
+			);
+		}
+		if (quantity) {
+			await client.query(
+				`
     UPDATE products
     SET quantity=$2
     WHERE id=$1;
     `,
-        [id, quantity]
-      );
-    }
-    if (category_id) {
-      await client.query(
-        `
+				[id, quantity]
+			);
+		}
+		if (category_id) {
+			await client.query(
+				`
     UPDATE products
     SET category_id=$2
     WHERE id=$1;
     `,
-        [id, category_id]
-      );
-    }
-    const {
-      rows: [product],
-    } = await client.query(
-      `
+				[id, category_id]
+			);
+		}
+		const {
+			rows: [product],
+		} = await client.query(
+			`
   SELECT * FROM products WHERE id=$1
   `,
-      [id]
-    );
-    return product;
-  } catch (error) {
-    throw error;
-  }
+			[id]
+		);
+		return product;
+	} catch (error) {
+		throw error;
+	}
 }
 
 async function getProductById(id) {
-  try {
-    const resp = await client.query(
-      `
+	try {
+		const resp = await client.query(
+			`
   SELECT * FROM products WHERE id=$1
   `,
-      [id]
-    );
-    const info = resp.rows[0];
-    console.log(info);
-    return info;
-  } catch (error) {
-    throw error;
-  }
+			[id]
+		);
+		const info = resp.rows[0];
+		// console.log(info);
+		return info;
+	} catch (error) {
+		throw error;
+	}
 }
 module.exports = {
-  createProduct,
-  getAllProducts,
-  updateProducts,
-  getProductById,
+	createProduct,
+	getAllProducts,
+	updateProducts,
+	getProductById,
 };
