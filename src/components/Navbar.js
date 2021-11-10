@@ -7,7 +7,7 @@ function Navbar(props) {
     props.setUser(null);
   };
   return (
-    <div>
+    <div className="navbar">
       <h1>Welcome to Nu Silk Road</h1>
       <Link to="/">Home</Link> |{" "}
       {!props.user && (
