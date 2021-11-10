@@ -1,12 +1,32 @@
 const client = require("./client");
 const bcrypt = require("bcrypt");
 
+// Create Admin
+async function makeUserAdmin(id) {
+	try {
+		const admin = client.query(
+			`
+		UPDATE users
+		SET is_admin = true
+		WHERE id = $1
+		RETURNING *;
+		`,
+			[id]
+		);
+
+		return admin;
+	} catch (error) {
+		console.log("Error in setting user to admin");
+		throw error;
+	}
+}
+
 // Create User Function
 
 async function createUser({ email, username, password }) {
 	try {
 		const SALT_COUNT = 10;
-		const hashedpassword = await bcrypt.hash(password, SALT_COUNT);
+		const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 		const {
 			rows: [user],
 		} = await client.query(
@@ -15,12 +35,12 @@ async function createUser({ email, username, password }) {
         VALUES($1, $2, $3)
         RETURNING *;
         `,
-			[email, username, hashedpassword]
+			[email, username, hashedPassword]
 		);
 		//console.log(user);
-
+		//console.log(hashedPassword);
 		delete user.password;
-
+		// console.log(user);
 		return user;
 	} catch (error) {
 		console.log("error creating user");
@@ -60,8 +80,8 @@ async function getUserByEmail(email) {
         `,
 			[email]
 		);
+		// console.log(user);
 
-		delete user.password;
 		return user;
 	} catch (error) {
 		console.log("error getting user by email");
@@ -118,6 +138,7 @@ async function verifyUser(email, password) {
 		return false;
 	} else {
 		const hashedPassword = user.password;
+		console.log(user);
 		try {
 			const isMatch = await bcrypt.compare(password, hashedPassword);
 			//console.log(isMatch);
@@ -169,5 +190,6 @@ module.exports = {
 	getUserById,
 	getUserByUsername,
 	getSingleOrderByUserId,
+	makeUserAdmin,
 	verifyUser,
 };

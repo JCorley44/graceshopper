@@ -24,12 +24,13 @@ usersRouter.post("/register", async (req, res) => {
       { id: user.id, username: user.username },
       JWT_SECRET
     );
-    console.log(token);
-    // Instead of dividing the package being sent into "user" and "token" I am adding token to user and sending it as one thing. This will not interfer with the createUser function populating the database because that was already run on line 21 above. And it solves the problem with the error we were getting Monday night. -WM.
+    //console.log(token);
+    // Instead of dividing the package being sent into "user" and "token" I am adding token to user and sending it as one thing. This will not interfere with the createUser function populating the database because that was already run on line 21 above. And it solves the problem with the error we were getting Monday night. -WM.
     user.token = token;
     res.send(user);
   } catch (error) {
-    res.status(409).send("User name already esist!");
+    console.log(error);
+    res.status(409).send("User name already exist!");
   }
 });
 
@@ -56,9 +57,11 @@ usersRouter.post("/login", async (req, res) => {
       console.log("user at line 30 /login", user);
       user.token = token;
       user.message = "User is successfully logged in";
-      res.send(user);
+      return res.send(user);
     } else {
-      res.status(401).send({ message: "Password entered is not valid." });
+      return res
+        .status(401)
+        .send({ message: "Password entered is not valid." });
     }
   } catch (error) {
     console.log("error in logging in");
@@ -71,6 +74,7 @@ usersRouter.post("/login", async (req, res) => {
 // It might look a little circular but this worked in previous projects.
 usersRouter.get("/me", (req, res) => {
   if (req.user) {
+    // console.log("me", req.user);
     return res.send(req.user);
   } else {
     return res.status(401).send("You are not logged in.");

@@ -2,7 +2,7 @@ const { addCategory, getAllCategories } = require("./category");
 const client = require("./client");
 const bcrypt = require("bcrypt");
 const { createProduct } = require("./products");
-const { createUser } = require("./users");
+const { createUser, makeUserAdmin } = require("./users");
 const { addProductsToOrder } = require("./productsInOrders");
 
 const { createOrder, getPurchaseOrders } = require("./orders");
@@ -11,13 +11,13 @@ const { createReview } = require("./reviews");
 
 async function dropTables() {
 	try {
-		// console.log("dropping tables");
+		console.log("dropping tables");
 		await client.query(`
-    DROP TABLE IF EXISTS reviews;
-    DROP TABLE IF EXISTS products_in_orders;
-    DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS products;
+    	DROP TABLE IF EXISTS reviews;
+    	DROP TABLE IF EXISTS products_in_orders;
+    	DROP TABLE IF EXISTS orders;
+    	DROP TABLE IF EXISTS users;
+    	DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS categories;
         `);
 	} catch (error) {
@@ -49,7 +49,8 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
 		    username VARCHAR(255) UNIQUE NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            is_admin BOOLEAN NOT NULL DEFAULT false
         );
 
         CREATE TABLE orders(
@@ -91,9 +92,24 @@ async function createInitialCategory() {
 	}
 }
 
+async function createInitialAdmin() {
+	console.log("Starting Create Admin");
+	try {
+		await makeUserAdmin(1);
+	} catch (error) {
+		console.log("Error in createInitialAdmin");
+		throw error;
+	}
+}
+
 async function createInitialUsers() {
 	// console.log("Start Create Initial Users");
 	const users = [
+		{
+			email: "admin@admin.com",
+			username: "The One Above All",
+			password: "password123",
+		},
 		{
 			email: "webslinger@email.com",
 			username: "Perter Parker",
@@ -170,6 +186,20 @@ async function createInitialProducts() {
 				quantity: 50,
 				category_id: 1,
 			},
+			{
+				title: "Samsung QLED 55-inch tv",
+				description: "newest tech in the best tv",
+				price: 1500,
+				quantity: 50,
+				category_id: 1,
+			},
+			{
+				title: "infinity gauntlet",
+				description: "all dream come true at the snap of your fingers",
+				price: 1000000000,
+				quantity: 1,
+				category_id: 1,
+			},
 		];
 		const products = await Promise.all(
 			productsToCreate.map((product) => createProduct(product))
@@ -228,7 +258,7 @@ async function createInitialOrders() {
 			await createOrder(order);
 		}
 	} catch (error) {
-		console.log("Error creating orders!");
+		//console.log("Error creating orders!");
 		throw error;
 	}
 }
@@ -314,6 +344,7 @@ async function rebuildDB() {
 		await createInitialCategory();
 		await createInitialProducts();
 		await createInitialUsers();
+		await createInitialAdmin();
 		await createInitialOrders();
 		await createInitialProductsInOrders();
 		await createInitialReviews();
@@ -322,5 +353,9 @@ async function rebuildDB() {
 		throw error;
 	}
 }
+
+// module.exports = {
+// 	rebuildDB,
+// };
 
 rebuildDB();
