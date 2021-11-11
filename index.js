@@ -22,13 +22,16 @@ server.use(async (req, res, next) => {
 	if (!token) return next();
 
 	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-	console.log(decodedToken);
+	// console.log("index.js line 25", decodedToken);
 	const user = await getUserByEmail(decodedToken.id);
-	console.log(user);
-	delete user.password;
-	req.user = user;
-	console.log(req.user);
-	next();
+	if (user != undefined) {
+		// console.log("index.js line 28", user);
+		delete user.password;
+		req.user = user;
+		// console.log("index.js line 31", user);
+		// console.log(req.user);
+		next();
+	}
 });
 
 server.use("/api", apiRouter);

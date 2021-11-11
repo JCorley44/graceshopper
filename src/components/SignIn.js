@@ -31,13 +31,13 @@ function SignIn(props) {
 		//Sets token in Local Storage.
 		localStorage.setItem("token", info.token);
 
-		//user and setUser are passed from app.js as props. Here we are setting the user state with the user information.
-		props.setUser({
-			id: info.id,
-			username: info.username,
-			email: info.email,
-			token: info.token,
-		});
+		//Setting the user state with the user information.
+		props.setUser(info);
+		// console.log(props.user);
+		if (info.is_admin === true) {
+			console.log("true");
+			props.setUserAdmin("true");
+		}
 
 		//Used here as a reset for the error message if something has already triggered it to display. Without this it will continue displaying on every screen until some action causes it to be changed.
 		props.setErrorMessage("");
