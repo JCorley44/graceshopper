@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import AdminCatEdit from "./AdminCatEdit";
 
 function AdminCat(props) {
 	const [categoriesList, setCategoriesList] = useState([]);
 	const [newCategory, setNewCategory] = useState("");
 	const baseURL = props.baseURL;
+	const token = props.token;
 
 	useEffect(() => {
 		fetchCategories();
@@ -21,13 +23,21 @@ function AdminCat(props) {
 		setCategoriesList(info);
 	}
 
-	const handleDelete = async (e) => {
-		// const resp = await fetch(``)
+	const handleDelete = async (categoryId) => {
 		console.log("Delete was clicked");
-	};
-
-	const handleEdit = async (e) => {
-		console.log("Edit was clicked...");
+		console.log(categoryId);
+		const resp = await fetch(
+			`${baseURL}categories/admin/delete-category/${categoryId}`,
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		const info = await resp.json();
+		console.log(info);
+		fetchCategories();
 	};
 
 	const handleSubmit = async (e) => {
@@ -59,8 +69,14 @@ function AdminCat(props) {
 						return (
 							<div key={category.id}>
 								<h3>{category.name}</h3>
-								<button onClick={handleEdit}>Edit Category</button>
-								<button onClick={handleDelete}>Delete Category</button>
+								<button onClick={(e) => handleDelete(category.id)}>
+									Delete Category
+								</button>
+								<AdminCatEdit
+									categoryId={category.id}
+									baseURL={props.baseURL}
+									fetchCategories={fetchCategories}
+								/>
 							</div>
 						);
 					})}
