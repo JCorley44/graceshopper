@@ -12,7 +12,7 @@ function Admin(props) {
 			<div>
 				<AdminNav />
 				<Route path="/admin/categories">
-					<AdminCat baseURL={props.baseURL} />
+					<AdminCat baseURL={props.baseURL} token={props.token} />
 				</Route>
 				<Route path="/admin/products">
 					<AdminProd baseURL={props.baseURL} />
