@@ -18,7 +18,7 @@ function AdminUserOrders(props) {
 			},
 		});
 		const info = await resp.json();
-		console.log("fetchOrdersforUser info:", info);
+		// console.log("fetchOrdersforUser info:", info);
 		if (info !== undefined) {
 			setOrdersForUser(info);
 		}
@@ -35,8 +35,8 @@ function AdminUserOrders(props) {
 				}
 				return (
 					<div key={order.id}>
-						<h3>Order: {order.id}</h3>
-						<p>User: {order.user_id}</p>
+						<h3>Order</h3>
+						{/* <p>User: {order.user_id}</p> */}
 						<p>Transaction: {orderStatus}</p>
 						<AdminUsersProInOrd orderId={order.id} baseURL={baseURL} />
 					</div>

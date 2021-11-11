@@ -1,30 +1,46 @@
 import { useEffect, useState } from "react";
+import AdminProInfo from "./AdminUserProInfo";
 
 function AdminUsersProInOrd(props) {
-	// const [listOfProductsInThisOrder, setListOfProductsInThisOrder] = useState(
-	// 	[]
-	// );
-	// const baseURL = props.baseURL;
+	const [listOfProductByIds, setListOfProductByIds] = useState([]);
 
-	// useEffect(() => {
-	// 	fetchProductList();
-	// }, []);
+	const baseURL = props.baseURL;
+	const orderId = props.orderId;
 
-	// async function fetchProductList() {
-	// 	// This doesn't work because the fetch URL doesn't actually exist. Which is perfectly okay. There might be an easier way to do this. IDK. But I may end up creating that tomorrow.
-	// 	const resp = await fetch(`${baseURL}products_in_orders/:orderId`, {
-	// 		method: "GET",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 	});
-	// 	const info = await resp.json();
-	// 	console.log("fetchProductList info:", info);
-	// 	if (info !== undefined) {
-	// 		setListOfProductsInThisOrder(info);
-	// 	}
-	// }
-	return <>List of Products in Orders Here.</>;
+	useEffect(() => {
+		fetchProductList();
+	}, []);
+
+	async function fetchProductList() {
+		const fetchURL = `${baseURL}products_in_orders/${orderId}`;
+		const resp = await fetch(`${fetchURL}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const info = await resp.json();
+		// console.log("fetchProductList info:", info);
+		if (info !== undefined) {
+			setListOfProductByIds(info);
+			// console.log(listOfProductByIds);
+		}
+	}
+
+	return (
+		<>
+			Items in This Order:
+			<div>
+				{listOfProductByIds.map((product) => {
+					return (
+						<div key={product.id}>
+							<AdminProInfo baseURL={baseURL} productId={product.product_id} />
+						</div>
+					);
+				})}
+			</div>
+		</>
+	);
 }
 
 export default AdminUsersProInOrd;
