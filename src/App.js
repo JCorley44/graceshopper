@@ -38,6 +38,7 @@ function App() {
 		fetchUser();
 	}, [token]);
 
+
 	// Random comment.
 	return (
 		<div className="App">
@@ -75,16 +76,17 @@ function App() {
 				<MyOrders />
 			</Route>
 			<Route path="/search-results">
-				<ProductsPage searchedProducts={searchedProducts} />
+				<ProductsPage searchedProducts={searchedProducts} baseURL={baseURL} />
 			</Route>
 			<Route path="/my-cart">
-				<MyCart baseURL={baseURL} />
+				<MyCart baseURL={baseURL} user={user} token={token}/>
 			</Route>
 			<Route path="/admin">
 				<Admin baseURL={baseURL} token={token} />
 			</Route>
 		</div>
 	);
+
 }
 
 export default App;
