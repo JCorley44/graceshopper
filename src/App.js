@@ -69,10 +69,10 @@ function App() {
         <MyOrders />
       </Route>
       <Route path="/search-results">
-        <ProductsPage searchedProducts={searchedProducts} />
+        <ProductsPage searchedProducts={searchedProducts} baseURL={baseURL} />
       </Route>
       <Route path="/my-cart">
-        <MyCart />
+        <MyCart baseURL={baseURL} user={user} token={token} />
       </Route>
     </div>
   );
