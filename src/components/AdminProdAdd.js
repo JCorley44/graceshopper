@@ -1,20 +1,19 @@
 import { useState } from "react";
 
-function AdminProdEd(props) {
-	const [title, setTitle] = useState(props.product.title);
-	const [description, setDescription] = useState(props.product.description);
-	const [price, setPrice] = useState(props.product.price);
-	const [quantity, setQuantity] = useState(props.product.quantity);
-	const [category_id, setCategory_id] = useState(props.product.category_id);
+function AdminProdAdd(props) {
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [price, setPrice] = useState("");
+	const [quantity, setQuantity] = useState("");
+	const [category_id, setCategory_id] = useState("");
 	const baseURL = props.baseURL;
-	const productId = props.product.id;
-	// console.log(props);
 
+	// Handles the submit of the Add a Product form.
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// console.log("Handle Submit Fired", category_id);
-		const resp = await fetch(`${baseURL}products/${productId}`, {
-			method: "PATCH",
+		// console.log("Add");
+		const resp = await fetch(`${baseURL}products/`, {
+			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -28,41 +27,41 @@ function AdminProdEd(props) {
 		});
 		const info = await resp.json();
 		// console.log("info", info);
-
 		props.fetchProducts();
-		// console.log("Should have fetched", info);
-		props.fetchCategory(info.category_id);
 		return info;
 	};
 
 	return (
 		<>
 			<div>
-				<h3>Edit Product: {props.product.title}</h3>
+				<h3>Add a New Product</h3>
 				<form onSubmit={handleSubmit}>
 					<input
 						onChange={(e) => setTitle(e.target.value)}
 						type={"text"}
+						placeholder={"Product Title"}
 						value={title}
 					></input>
 					<input
 						onChange={(e) => setDescription(e.target.value)}
 						type={"text"}
+						placeholder={"Product Description"}
 						value={description}
 					></input>
 					<input
 						onChange={(e) => setPrice(e.target.value)}
 						type={"text"}
+						placeholder={"Price"}
 						value={price}
 					></input>
 					<input
 						onChange={(e) => setQuantity(e.target.value)}
 						type={"text"}
+						placeholder={"Quantity On Hand"}
 						value={quantity}
 					></input>
 					<select onChange={(e) => setCategory_id(e.target.value)}>
 						{props.categoryList.map((category) => {
-							// console.log(category);
 							return (
 								<option key={category.id} value={category.id}>
 									{category.name}
@@ -77,4 +76,4 @@ function AdminProdEd(props) {
 	);
 }
 
-export default AdminProdEd;
+export default AdminProdAdd;

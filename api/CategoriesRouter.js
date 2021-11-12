@@ -23,7 +23,7 @@ categoriesRouter.get("/", async (req, res, next) => {
 //get single category
 categoriesRouter.get("/:categoryId", async (req, res, next) => {
 	try {
-		const categoryId = req.params;
+		const categoryId = req.params.categoryId;
 		const category = await getCategoryById(categoryId);
 		res.send(category);
 	} catch (error) {
