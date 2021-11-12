@@ -53,4 +53,26 @@ async function deleteCart(order_id) {
 	}
 }
 
-module.exports = { addProductsToOrder, deleteProdctInOrders, deleteCart };
+async function getAllProductsInAnOrderByOrderId(order_id) {
+	console.log("Hi from DB your order id is:", order_id);
+	try {
+		const productList = await client.query(
+			`
+		SELECT * FROM products_in_orders
+		WHERE order_id = $1
+		`,
+			[order_id]
+		);
+
+		return productList.rows;
+	} catch (error) {
+		throw error;
+	}
+}
+
+module.exports = {
+	addProductsToOrder,
+	deleteProdctInOrders,
+	deleteCart,
+	getAllProductsInAnOrderByOrderId,
+};
