@@ -43,7 +43,7 @@ productsInOrdersRouter.delete("/delete/:order_id", async (req, res) => {
 
 productsInOrdersRouter.get("/:order_id", async (req, res) => {
 	const order_id = req.params.order_id;
-	console.log("Hi from API/pro in ord. Your order id is:", order_id);
+	// console.log("Hi from API/pro in ord. Your order id is:", order_id);
 	try {
 		const getProducts = await getAllProductsInAnOrderByOrderId(order_id);
 		res.send(getProducts);

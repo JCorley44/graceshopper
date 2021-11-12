@@ -13,8 +13,9 @@ function Navbar(props) {
 	//handling logging out
 	const handleLogout = () => {
 		localStorage.removeItem("token");
-		props.setUser({});
-		props.setUserAdmin({});
+		props.setUser(null);
+		props.setUserAdmin(false);
+		return history.push("/");
 	};
 
 	const getAllProducts = async () => {
