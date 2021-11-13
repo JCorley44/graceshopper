@@ -1,6 +1,5 @@
-import "../homeStyles";
-import { homeStyles } from "../homeStyles";
 import RelatedProducts from "./RelatedProducts";
+import "../index.css";
 
 function Home(props) {
   console.log(props.user);
@@ -11,20 +10,14 @@ function Home(props) {
       ) : (
         <h2>Welcome Stranger!</h2>
       )}
-      <div id="main" style={homeStyles.main}>
-        <div id="related-products" style={homeStyles.relatedProducts}>
+      <div id="main">
+        <div id="related-products">
           {" "}
-          related products
+          Related Products
           <RelatedProducts />
         </div>
-        <div id="featured-products" style={homeStyles.featuredProducts}>
-          {" "}
-          featured products
-        </div>
-        <div id="user-hist" style={homeStyles.userHistory}>
-          {" "}
-          user history
-        </div>
+        <div id="featured-products"> Featured Products</div>
+        <div id="user-hist"> User History</div>
       </div>
     </div>
   );
