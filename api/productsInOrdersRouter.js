@@ -1,5 +1,9 @@
 const client = require("../db/client");
-const { addProductsToOrder, deleteCart } = require("../db/productsInOrders");
+const {
+	addProductsToOrder,
+	deleteCart,
+	getAllProductsInAnOrderByOrderId,
+} = require("../db/productsInOrders");
 const { updateOrder } = require("../db/orders");
 const productsInOrdersRouter = require("express").Router();
 
@@ -36,4 +40,18 @@ productsInOrdersRouter.delete("/delete/:order_id", async (req, res) => {
 	const deleteOrder = await deleteCart(order_id);
 	res.send(deleteOrder);
 });
+
+productsInOrdersRouter.get("/:order_id", async (req, res) => {
+	const order_id = req.params.order_id;
+	// console.log("Hi from API/pro in ord. Your order id is:", order_id);
+	try {
+		const getProducts = await getAllProductsInAnOrderByOrderId(order_id);
+		res.send(getProducts);
+	} catch (error) {
+		res
+			.status(404)
+			.send({ message: "Could not retrieve products", error: error });
+	}
+});
+
 module.exports = productsInOrdersRouter;

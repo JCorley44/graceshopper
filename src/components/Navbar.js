@@ -15,6 +15,8 @@ function Navbar(props) {
   const handleLogout = () => {
     localStorage.removeItem("token");
     props.setUser(null);
+    props.setUserAdmin(false);
+    return history.push("/");
   };
 
   const getAllProducts = async () => {
@@ -30,7 +32,7 @@ function Navbar(props) {
   useEffect(() => {
     getAllProducts();
   }, []);
-  console.log(allProducts);
+  // console.log(allProducts);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,13 +54,7 @@ function Navbar(props) {
     history.push("/search-results");
   };
   return (
-    <div className="navbar">
-      <div>
-        <img
-          id="img"
-          src="https://th.bing.com/th/id/R.7b6b26b2f436501b395f6113672a4205?rik=9bTKdt3ND%2f6hUg&riu=http%3a%2f%2fi4.glitter-graphics.org%2fpub%2f1263%2f1263854zlo6cy5mpf.gif&ehk=iZsJW%2fhvCeOiPnYomxmSkfbYO7j2mP1xOUckLuzj3og%3d&risl=&pid=ImgRaw&r=0"
-        ></img>
-      </div>
+    <div>
       <h1>Welcome to Nu Silk Road</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -69,24 +65,27 @@ function Navbar(props) {
         ></input>
         <button>Search</button>
       </form>
-      <div className="navlink">
-        <Link to="/">Home</Link> |{" "}
-        {!props.user && (
-          <>
-            <Link to="/sign-in">Sign In</Link> |
-            <Link to="/register">Register</Link>
-          </>
-        )}
-        {props.user && (
-          <>
-            <Link onClick={handleLogout} to="/">
-              Log Out
-            </Link>
-          </>
-        )}
-        | <Link to="/my-cart">My Cart</Link> |{" "}
-        <Link to="/my-orders">My Orders</Link>
-      </div>
+      <Link to="/">Home</Link> |{" "}
+      {!props.user && (
+        <>
+          <Link to="/sign-in">Sign In</Link> |
+          <Link to="/register">Register</Link>
+        </>
+      )}
+      {props.user && (
+        <>
+          <Link onClick={handleLogout} to="/">
+            Log Out
+          </Link>
+        </>
+      )}
+      | <Link to="/my-cart">My Cart</Link>|{" "}
+      <Link to="/my-orders">My Orders</Link>
+      {props.userAdmin && (
+        <>
+          | <Link to="/admin">Admin Page</Link>
+        </>
+      )}
     </div>
   );
 }

@@ -138,7 +138,7 @@ async function verifyUser(email, password) {
 		return false;
 	} else {
 		const hashedPassword = user.password;
-		console.log(user);
+		// console.log(user);
 		try {
 			const isMatch = await bcrypt.compare(password, hashedPassword);
 			//console.log(isMatch);
@@ -151,14 +151,17 @@ async function verifyUser(email, password) {
 }
 
 async function getOrdersByUserId(id) {
+	// console.log("Hi from db/users. The passed in id is:", id);
 	try {
-		const orders = await client.query(
+		const { rows: orders } = await client.query(
 			`
-    SELECT * FROM orders
-    WHERE user_id = $1;
-    `[id]
+		SELECT * FROM orders
+		WHERE user_id =($1);
+		`,
+			[id]
 		);
-		return orders.rows;
+		// console.log(orders);
+		return orders;
 	} catch (error) {
 		console.log("Error in get Orders By User Id");
 		throw error;
