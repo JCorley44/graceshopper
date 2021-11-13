@@ -4,7 +4,7 @@ import "../index.css";
 function Home(props) {
   console.log(props.user);
   return (
-    <div>
+    <div className="Home">
       {props.user ? (
         <h2>Welcome {props.user.username}!</h2>
       ) : (

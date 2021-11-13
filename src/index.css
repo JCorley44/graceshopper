@@ -11,13 +11,16 @@ h2 {
   border: solid;
   background-color: black;
   color: whitesmoke;
+  padding: 20px;
 }
 
 .navlink {
   margin: 20px;
   color: white;
   word-spacing: 5px;
+  display: block;
   box-sizing: border-box;
+  box-shadow: whitesmoke;
 }
 
 .navlink :visited {
@@ -44,4 +47,9 @@ h2 {
 .user-hist {
   color: white;
   background-color: black;
+}
+
+.Home {
+  background-color: black;
+  color: white;
 }

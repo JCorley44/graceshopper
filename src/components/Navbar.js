@@ -54,7 +54,7 @@ function Navbar(props) {
     history.push("/search-results");
   };
   return (
-    <div>
+    <div className="navbar">
       <h1>Welcome to Nu Silk Road</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -65,27 +65,31 @@ function Navbar(props) {
         ></input>
         <button>Search</button>
       </form>
-      <Link to="/">Home</Link> |{" "}
-      {!props.user && (
-        <>
-          <Link to="/sign-in">Sign In</Link> |
-          <Link to="/register">Register</Link>
-        </>
-      )}
-      {props.user && (
-        <>
-          <Link onClick={handleLogout} to="/">
-            Log Out
-          </Link>
-        </>
-      )}
-      | <Link to="/my-cart">My Cart</Link>|{" "}
-      <Link to="/my-orders">My Orders</Link>
-      {props.userAdmin && (
-        <>
-          | <Link to="/admin">Admin Page</Link>
-        </>
-      )}
+      <div className="navlink">
+        {" "}
+        <Link to="/">Home</Link> |{" "}
+        {!props.user && (
+          <>
+            {" "}
+            <Link to="/sign-in">Sign In</Link> |
+            <Link to="/register">Register</Link>
+          </>
+        )}
+        {props.user && (
+          <>
+            <Link onClick={handleLogout} to="/">
+              Log Out
+            </Link>
+          </>
+        )}
+        | <Link to="/my-cart">My Cart</Link>|{" "}
+        <Link to="/my-orders">My Orders</Link>
+        {props.userAdmin && (
+          <>
+            | <Link to="/admin">Admin Page</Link>
+          </>
+        )}
+      </div>
     </div>
   );
 }
