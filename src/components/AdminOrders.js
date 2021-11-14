@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AdminOrdersInd from "./AdminOrdersInd";
 
 function AdminOrders(props) {
 	const [allOrders, setAllOrders] = useState([]);
@@ -9,6 +10,7 @@ function AdminOrders(props) {
 	}, []);
 
 	async function fetchOrders() {
+		// console.log("Hello from adminOrders");
 		const resp = await fetch(`${baseURL}orders`, {
 			method: "GET",
 			headers: {
@@ -24,7 +26,24 @@ function AdminOrders(props) {
 		<>
 			<div>
 				{allOrders.map((order) => {
-					return <div key={order.id}> </div>;
+					let orderStatus = "";
+					if (order.is_purchase === true) {
+						orderStatus = "Completed";
+					} else {
+						orderStatus = "Pending";
+					}
+
+					// console.log(order.user_id);
+
+					return (
+						<div key={order.id}>
+							<AdminOrdersInd
+								baseURL={baseURL}
+								order={order}
+								orderStatus={orderStatus}
+							/>
+						</div>
+					);
 				})}
 			</div>
 		</>
