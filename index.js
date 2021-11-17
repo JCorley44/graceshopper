@@ -15,29 +15,29 @@ server.use(cors());
 server.use(express.json());
 
 server.use(async (req, res, next) => {
-	const token = req.headers.authorization
-		? req.headers.authorization.substring(7)
-		: null;
+  const token = req.headers.authorization
+    ? req.headers.authorization.substring(7)
+    : null;
 
-	if (!token) return next();
+  if (!token) return next();
 
-	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-	// console.log("index.js line 25", decodedToken);
-	const user = await getUserByEmail(decodedToken.id);
-	if (user != undefined) {
-		// console.log("index.js line 28", user);
-		delete user.password;
-		req.user = user;
-		// console.log("index.js line 31", user);
-		// console.log(req.user);
-		next();
-	}
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  // console.log("index.js line 25", decodedToken);
+  const user = await getUserByEmail(decodedToken.id);
+  if (user != undefined) {
+    // console.log("index.js line 28", user);
+    delete user.password;
+    req.user = user;
+    // console.log("index.js line 31", user);
+    // console.log(req.user);
+    next();
+  }
 });
 
 server.use("/api", apiRouter);
 
-server.listen(process.env.SERVER_PORT || process.env.PORT, () => {
-	client.connect();
-	// rebuildDB();
-	console.log("Server is up!");
+server.listen(process.env.REACT_APP_SERVER_PORT || process.env.PORT, () => {
+  client.connect();
+  // rebuildDB();
+  console.log("Server is up!");
 });

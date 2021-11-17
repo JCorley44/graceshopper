@@ -66,7 +66,10 @@ function Register(props) {
           placeholder={"enter a username"}
           value={username}
         ></input>
+<<<<<<< HEAD
         <br></br>
+=======
+>>>>>>> master
         <input
           onChange={(e) => setEmail(e.target.value)}
           minLength={8}
@@ -74,7 +77,10 @@ function Register(props) {
           placeholder={"enter email address"}
           value={email}
         ></input>
+<<<<<<< HEAD
         <br></br>
+=======
+>>>>>>> master
         <input
           onChange={(e) => setPassword(e.target.value)}
           minLength={8}
@@ -82,7 +88,10 @@ function Register(props) {
           placeholder={"enter password"}
           value={password}
         ></input>
+<<<<<<< HEAD
         <br></br>
+=======
+>>>>>>> master
         <input
           onChange={(e) => setConfirmPassword(e.target.value)}
           minLength={8}
@@ -90,7 +99,10 @@ function Register(props) {
           placeholder={"verify password"}
           value={confirmPassword}
         ></input>
+<<<<<<< HEAD
         <br></br>
+=======
+>>>>>>> master
         <button>Register New User</button>
       </form>
       <p>{props.errorMessage}</p>

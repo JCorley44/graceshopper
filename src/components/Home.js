@@ -3,7 +3,8 @@ import "../index.css";
 import { homeStyles } from "../homeStyles";
 
 function Home(props) {
-  console.log(props.user);
+  const baseURL = props.baseURL;
+
   return (
     <div className="Home">
       {props.user ? (
@@ -14,8 +15,13 @@ function Home(props) {
       <div id="main">
         <div id="related-products">
           {" "}
+<<<<<<< HEAD
           Related Products
           <RelatedProducts />
+=======
+          related products
+          <RelatedProducts baseURL={baseURL} />
+>>>>>>> master
         </div>
         <div id="featured-products"> Featured Products</div>
         <div id="user-hist"> User History</div>

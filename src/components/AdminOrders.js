@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import AdminOrdersInd from "./AdminOrdersInd";
 
 function AdminOrders(props) {
-	const [allOrders, setAllOrders] = useState([]);
-	const baseURL = props.baseURL;
+  const [allOrders, setAllOrders] = useState([]);
+  const baseURL = props.baseURL;
 
-	useEffect(() => {
-		fetchOrders();
-	}, []);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
 
 	async function fetchOrders() {
 		// console.log("Hello from adminOrders");
@@ -48,6 +49,7 @@ function AdminOrders(props) {
 			</div>
 		</>
 	);
+
 }
 
 export default AdminOrders;
