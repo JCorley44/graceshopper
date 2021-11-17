@@ -15,13 +15,8 @@ function Home(props) {
       <div id="main">
         <div id="related-products">
           {" "}
-<<<<<<< HEAD
           Related Products
-          <RelatedProducts />
-=======
-          related products
           <RelatedProducts baseURL={baseURL} />
->>>>>>> master
         </div>
         <div id="featured-products"> Featured Products</div>
         <div id="user-hist"> User History</div>

@@ -50,7 +50,6 @@ function SignIn(props) {
     <>
       <h2>Sign into your account!</h2>
       <form onSubmit={handleSubmit}>
-<<<<<<< HEAD
         <div className="email">
           <input
             onChange={(e) => setEmail(e.target.value)}
@@ -71,22 +70,6 @@ function SignIn(props) {
           ></input>
         </div>
         <br></br>
-=======
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          minLength={8}
-          type={"text"}
-          placeholder={"enter email address"}
-          value={email}
-        ></input>
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          minLength={8}
-          type={"password"}
-          placeholder={"enter password"}
-          value={password}
-        ></input>
->>>>>>> master
         <button>Sign In</button>
         <p>{props.errorMessage}</p>
       </form>

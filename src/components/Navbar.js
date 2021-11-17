@@ -8,14 +8,7 @@ function Navbar(props) {
   const [categories, setCategories] = useState("");
   const [allProducts, setAllProducts] = useState([]);
   const [product, setProduct] = useState("");
-<<<<<<< HEAD
-
   const history = useHistory();
-=======
-
-  const history = useHistory();
-
->>>>>>> master
 
   //handling logging out
   const handleLogout = () => {
@@ -24,36 +17,6 @@ function Navbar(props) {
     props.setUserAdmin(false);
     return history.push("/");
   };
-
-<<<<<<< HEAD
-  const getAllProducts = async () => {
-    const resp = await fetch(`${props.baseURL}products`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const info = await resp.json();
-    setAllProducts(info);
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-  // console.log(allProducts);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    //write fetch request to search for products
-    function searchedMatches(product) {
-      if (
-        product.title.toLowerCase().includes(search) ||
-        product.description.toLowerCase().includes(search)
-      ) {
-        return true;
-      }
-    }
-
-=======
 
   const getAllProducts = async () => {
     const resp = await fetch(`${props.baseURL}products`);
@@ -79,7 +42,6 @@ function Navbar(props) {
       }
     }
 
->>>>>>> master
     const filteredSearch = allProducts.filter((product) =>
       searchedMatches(product, search)
     );
@@ -88,7 +50,6 @@ function Navbar(props) {
     history.push("/search-results");
   };
   return (
-<<<<<<< HEAD
     <div className="navbar">
       <div id="navimg">
         <img
@@ -145,40 +106,6 @@ function Navbar(props) {
         </div>
       </div>
       <div id="filler"></div>
-=======
-    <div>
-      <h1>Welcome to Nu Silk Road</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={(e) => setSearch(e.target.value)}
-          type={"text"}
-          placeholder={"What are ya looking for?"}
-          value={search}
-        ></input>
-        <button>Search</button>
-      </form>
-      <Link to="/">Home</Link> |{" "}
-      {!props.user && (
-        <>
-          <Link to="/sign-in">Sign In</Link> |
-          <Link to="/register">Register</Link>
-        </>
-      )}
-      {props.user && (
-        <>
-          <Link onClick={handleLogout} to="/">
-            Log Out
-          </Link>
-        </>
-      )}
-      | <Link to="/my-cart">My Cart</Link>|{" "}
-      {props.user && <Link to="/my-orders">My Orders</Link>}
-      {props.userAdmin && (
-        <>
-          | <Link to="/admin">Admin Page</Link>
-        </>
-      )}
->>>>>>> master
     </div>
   );
 }
