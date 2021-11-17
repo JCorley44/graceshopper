@@ -55,6 +55,12 @@ function Navbar(props) {
   };
   return (
     <div className="navbar">
+      <div>
+        <img
+          src="
+          https://th.bing.com/th/id/R.35981308b75b7604a88687c94f923ef3?rik=vN1ucLyXS2Y3PQ&riu=http%3a%2f%2fimages4.fanpop.com%2fimage%2fphotos%2f16300000%2ftheres-alot-of-them-its-so-cool-pikachu-vs-raichu-16366712-100-100.gif&ehk=5D6CKi62EyfLqHXRniR7D0jK8sycyita7zO8UT2SCTE%3d&risl=&pid=ImgRaw&r=0"
+        ></img>
+      </div>
       <h1>Welcome to Nu Silk Road</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -82,7 +88,7 @@ function Navbar(props) {
             </Link>
           </>
         )}
-        | <Link to="/my-cart">My Cart</Link>|{" "}
+        | <Link to="/my-cart">My Cart</Link> |{" "}
         <Link to="/my-orders">My Orders</Link>
         {props.userAdmin && (
           <>

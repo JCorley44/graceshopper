@@ -27,16 +27,19 @@ h2 {
   color: yellow;
 }
 
+.navlink :hover {
+  animation-play-state: paused;
+}
+
 .main {
-  display: "flex";
-  justify-content: "space-around";
+  display: flex;
+  justify-content: space-around;
   display: grid;
 }
 
 .related-products {
   color: white;
   background-color: black;
-  border-style: solid;
 }
 
 .featured-products {
@@ -52,4 +55,12 @@ h2 {
 .Home {
   background-color: black;
   color: white;
+}
+
+.email {
+  padding: 5px;
+}
+
+.pass {
+  padding: 5px;
 }

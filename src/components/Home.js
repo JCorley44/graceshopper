@@ -1,5 +1,6 @@
 import RelatedProducts from "./RelatedProducts";
 import "../index.css";
+import { homeStyles } from "../homeStyles";
 
 function Home(props) {
   console.log(props.user);
