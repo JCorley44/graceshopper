@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function AdminProdEd(props) {
-
 	const [title, setTitle] = useState(props.product.title);
 	const [description, setDescription] = useState(props.product.description);
 	const [price, setPrice] = useState(props.product.price);
@@ -76,7 +75,6 @@ function AdminProdEd(props) {
 			</div>
 		</>
 	);
-
 }
 
 export default AdminProdEd;
