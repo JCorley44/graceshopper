@@ -41,17 +41,20 @@ productsInOrdersRouter.delete("/delete/:orderId", async (req, res) => {
   res.send(deleteOrder);
 });
 
-productsInOrdersRouter.get("/:orderId", async (req, res) => {
-  const orderId = req.params.orderId;
-  console.log("Hi from API/pro in ord. Your order id is:", orderId);
-  try {
-    const getProducts = await getAllProductsInAnOrderByOrderId(orderId);
-    res.send(getProducts);
-  } catch (error) {
-    res
-      .status(404)
-      .send({ message: "Could not retrieve products", error: error });
-  }
+
+
+productsInOrdersRouter.get("/:order_id", async (req, res) => {
+	const order_id = req.params.order_id;
+	// console.log("Hi from API/pro in ord. Your order id is:", order_id);
+	try {
+		const getProducts = await getAllProductsInAnOrderByOrderId(order_id);
+		res.send(getProducts);
+	} catch (error) {
+		res
+			.status(404)
+			.send({ message: "Could not retrieve products", error: error });
+	}
+
 });
 
 module.exports = productsInOrdersRouter;

@@ -1,12 +1,17 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const {
-  createUser,
-  getUserByEmail,
-  verifyUser,
-  getAllUsers,
-  getOrdersByUserId,
-  getSingleOrderByUserId,
+
+ 
+
+	createUser,
+	getUserByEmail,
+	verifyUser,
+	getAllUsers,
+	getOrdersByUserId,
+	getSingleOrderByUserId,
+	getUserById,
+
 } = require("../db/users");
 
 const usersRouter = require("express").Router();
@@ -67,6 +72,17 @@ usersRouter.post("/login", async (req, res) => {
     console.log("error in logging in");
     throw error;
   }
+});
+
+usersRouter.get("/:userId", async (req, res) => {
+	const userId = req.params.userId;
+	// console.log("Hi from router,", userId);
+	try {
+		const user = await getUserById(userId);
+		return res.send(user);
+	} catch (error) {
+		return res.status(404).send({ message: "Cannot get that user." });
+	}
 });
 
 // GET /users/me

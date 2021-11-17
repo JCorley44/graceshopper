@@ -10,13 +10,15 @@ function Navbar(props) {
 
   const history = useHistory();
 
-  //handling logging out
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    props.setUser(null);
-    props.setUserAdmin(false);
-    return history.push("/");
-  };
+
+	//handling logging out
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		props.setUser(null);
+		props.setUserAdmin(false);
+		return history.push("/");
+	};
+
 
   const getAllProducts = async () => {
     const resp = await fetch(`${props.baseURL}products`);
