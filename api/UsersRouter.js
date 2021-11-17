@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const {
-<<<<<<< HEAD
   createUser,
   getUserByEmail,
   verifyUser,
@@ -9,19 +8,6 @@ const {
   getOrdersByUserId,
   getSingleOrderByUserId,
   getUserById,
-=======
-
- 
-
-	createUser,
-	getUserByEmail,
-	verifyUser,
-	getAllUsers,
-	getOrdersByUserId,
-	getSingleOrderByUserId,
-	getUserById,
-
->>>>>>> master
 } = require("../db/users");
 
 const usersRouter = require("express").Router();
