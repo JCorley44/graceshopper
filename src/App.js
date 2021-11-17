@@ -1,4 +1,4 @@
-import "./App.css";
+import "./index.css";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router";
 import Home from "./components/Home";
@@ -25,7 +25,10 @@ function App() {
       return setUser(null);
     }
     setToken(token);
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
     const fetchUser = async () => {
       const response = await fetch(`${baseURL}users/me`, {
         headers: {
@@ -37,7 +40,11 @@ function App() {
       setUser(info);
     };
     fetchUser();
+<<<<<<< HEAD
+  }, [token]);
+=======
   }, []);
+>>>>>>> master
 
   // Random comment.
   return (
@@ -51,8 +58,13 @@ function App() {
         setSearchedProducts={setSearchedProducts}
       />
       <Route exact path="/">
+<<<<<<< HEAD
+        <Home user={user} />
+      </Route>
+=======
         <Home user={user} baseURL={baseURL} />
       </Route>{" "}
+>>>>>>> master
       <Route path="/register">
         <Register
           user={user}
@@ -73,7 +85,11 @@ function App() {
         />
       </Route>
       <Route path="/my-orders">
+<<<<<<< HEAD
+        <MyOrders user={user} />
+=======
         <MyOrders user={user} baseURL={baseURL} />
+>>>>>>> master
       </Route>
       <Route path="/search-results">
         <ProductsPage searchedProducts={searchedProducts} baseURL={baseURL} />
