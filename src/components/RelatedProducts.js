@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-const baseURL = `http://localhost:3000/api/`;
 
-function RelatedProducts() {
+function RelatedProducts(props) {
   const [relatedItemList, setRelatedItemList] = useState([]);
-
+  const baseURL = props.baseURL;
   useEffect(() => {
     fetchProducts();
   }, []);
 
   async function fetchProducts(e) {
+    console.log(baseURL);
     const resp = await fetch(`${baseURL}products`, {
       method: "GET",
       headers: {

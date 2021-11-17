@@ -3,7 +3,8 @@ import { homeStyles } from "../homeStyles";
 import RelatedProducts from "./RelatedProducts";
 
 function Home(props) {
-  console.log(props.user);
+  const baseURL = props.baseURL;
+
   return (
     <div>
       {props.user ? (
@@ -15,7 +16,7 @@ function Home(props) {
         <div id="related-products" style={homeStyles.relatedProducts}>
           {" "}
           related products
-          <RelatedProducts />
+          <RelatedProducts baseURL={baseURL} />
         </div>
         <div id="featured-products" style={homeStyles.featuredProducts}>
           {" "}
