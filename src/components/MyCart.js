@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const MyCart = (props) => {
   const [cart, setCart] = useState([]);
-  const baseURL = props.basURL;
+  const baseURL = props.baseURL;
 
   useEffect(() => {
     async function createCart() {

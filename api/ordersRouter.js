@@ -22,6 +22,7 @@ ordersRouter.get("/", async (req, res) => {
 ordersRouter.get("/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
+    console.log(userId);
     const purchaseOrder = await getPurchaseOrders(userId);
     // console.log(purchaseOrder);
     return res.send(purchaseOrder);
