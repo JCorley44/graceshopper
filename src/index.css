@@ -1,3 +1,8 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 .App {
   border-radius: 110px;
   text-align: center;
@@ -9,51 +14,45 @@ h2 {
 
 .navbar {
   border: solid;
-  background-color: black;
+  background-color: grey;
   color: whitesmoke;
   padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .navlink {
   margin: 20px;
-  color: white;
+  color: black;
   word-spacing: 5px;
-  display: block;
-  box-sizing: border-box;
-  box-shadow: whitesmoke;
-}
-
-.navlink :visited {
-  color: yellow;
 }
 
 .navlink :hover {
   animation-play-state: paused;
 }
 
-.main {
+#main {
   display: flex;
   justify-content: space-around;
-  display: grid;
 }
 
-.related-products {
+#related-products {
   color: white;
   background-color: black;
 }
 
-.featured-products {
+#featured-products {
   color: white;
   background-color: black;
 }
 
-.user-hist {
+#user-hist {
   color: white;
   background-color: black;
 }
 
 .Home {
-  background-color: black;
+  background-color: white;
   color: white;
 }
 
@@ -63,4 +62,46 @@ h2 {
 
 .pass {
   padding: 5px;
+}
+
+#navimg {
+  position: absolute;
+  left: 3%;
+}
+
+#navmain {
+  align-self: center;
+}
+
+h1 {
+  color: black;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: yellow;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 3px solid black;
+}
+
+button:hover {
+  border: 4px dotted yellow;
+  color: yellow;
+  background: black;
+  font-weight: bolder;
+}
+
+.navlink :visited {
+  text-decoration: none;
+  color: white;
+}
+
+input {
+  height: 40px;
+  border-radius: 12px;
+  margin: 20px;
+  padding-left: 5px;
 }
