@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import AdminOrdersInd from "./AdminOrdersInd";
 
 function AdminOrders(props) {
-  const [allOrders, setAllOrders] = useState([]);
-  const baseURL = props.baseURL;
+	const [allOrders, setAllOrders] = useState([]);
+	const baseURL = props.baseURL;
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
+	useEffect(() => {
+		fetchOrders();
+	}, []);
 
 	async function fetchOrders() {
 		// console.log("Hello from adminOrders");
@@ -25,7 +24,7 @@ function AdminOrders(props) {
 
 	return (
 		<>
-			<div>
+			<div className="adContainer">
 				{allOrders.map((order) => {
 					let orderStatus = "";
 					if (order.is_purchase === true) {
@@ -37,7 +36,7 @@ function AdminOrders(props) {
 					// console.log(order.user_id);
 
 					return (
-						<div key={order.id}>
+						<div className="adOrderCard" key={order.id}>
 							<AdminOrdersInd
 								baseURL={baseURL}
 								order={order}
@@ -49,7 +48,6 @@ function AdminOrders(props) {
 			</div>
 		</>
 	);
-
 }
 
 export default AdminOrders;

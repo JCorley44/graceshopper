@@ -52,3 +52,77 @@ h2 {
 .danger {
 	background-color: red;
 }
+
+.userCard {
+	display: flex;
+	flex-direction: column;
+	border: solid black 1px;
+	border-radius: 12px;
+	width: 60%;
+	margin-top: 40px;
+}
+
+.userInfo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 20px;
+}
+
+.adUserOrder {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	border: black solid 1px;
+	border-radius: 12px;
+	width: 80%;
+	margin-right: 10%;
+	margin-left: 10%;
+	margin-bottom: 20px;
+}
+
+.adUserOrderHead {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 80%;
+	margin-top: 20px;
+}
+
+.adUserOrdItems {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.adUserOrdItems > p {
+	margin: 20px;
+	width: 25%;
+}
+
+.adOrderCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 80%;
+}
+
+.adOrderInfoCard {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	border: solid black 1px;
+	border-radius: 12px;
+	margin-top: 20px;
+}
+.adOrderInfo {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+.adOrderInfo > p {
+	margin: 20px;
+	width: 25%;
+}

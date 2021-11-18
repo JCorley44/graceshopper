@@ -13,8 +13,8 @@ function AdminProdInfo(props) {
 
 	return (
 		<>
-			<h3>{product.title}</h3>
-			<p>Product Description: {product.description}</p>
+			<h2>{product.title}</h2>
+			<p>Description: {product.description}</p>
 			<p>Price: {product.price}</p>
 			<p>On Hand: {product.quantity}</p>
 			<p>Category: {props.categoryName}</p>

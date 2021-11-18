@@ -37,15 +37,19 @@ function AdminOrdersDetails(props) {
 	}
 
 	return (
-		<div>
-			<p>User: {userData.username} </p>
-			<p>Email: {userData.email} </p>
-			<p>Order Number: {order.id}</p>
-			<p>Transaction: {orderStatus}</p>
-			<p>Item: {title} </p>
-			<p>Description: {description} </p>
-			<p>Price: {price} </p>
-			<p>Quantity On Hand: {quantity} </p>
+		<div className="adOrderInfoCard">
+			<div className="adOrderInfo">
+				<p>User: {userData.username}</p>
+				<p>Email: {userData.email}</p>
+				<p>Order Number: {order.id}</p>
+				<p>Transaction: {orderStatus}</p>
+			</div>
+			<div className="adOrderInfo">
+				<p>Item: {title} </p>
+				<p>Description: {description} </p>
+				<p>Price: {price}</p>
+				<p>Quantity On Hand: {quantity} </p>
+			</div>
 		</div>
 	);
 }
