@@ -21,9 +21,13 @@ const MyOrderDetails = (props) => {
   // rando comment
   return (
     <>
-      <p>Title: {title}</p>
-      <p>Description: {description}</p>
-      <p>Price: {price}</p>
+      <div className="orderCardInfo">
+        <div className="orderInfo">
+          <p>Title: {title}</p>
+          <p>Description: {description}</p>
+          <p>Price: {price}</p>
+        </div>
+      </div>
     </>
   );
 };

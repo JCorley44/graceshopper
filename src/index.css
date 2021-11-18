@@ -105,3 +105,26 @@ input {
   margin: 20px;
   padding-left: 5px;
 }
+.orderCardHead,
+h2 {
+  text-align: left;
+  margin: 20px;
+}
+.orderCardInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: solid black 1px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.orderInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.orderInfo > p {
+  margin: 20px;
+  width: 25%;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react/cjs/react.development";
 import MyOrderInd from "./MyOrderInd";
+
 function MyOrders(props) {
   const [orderList, setOrderList] = useState([]);
   const user = props.user;
@@ -21,15 +22,20 @@ function MyOrders(props) {
   }
 
   return (
-    <div>
-      {orderList.map((order) => {
-        return (
-          <div key={order.id}>
-            <MyOrderInd orderId={order.id} baseURL={baseURL} />
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div>
+        <div className="orderCardHead">
+          <h2>My Orders</h2>
+        </div>
+        {orderList.map((order) => {
+          return (
+            <div key={order.id}>
+              <MyOrderInd orderId={order.id} baseURL={baseURL} />
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
   //   const [orders, setOrders] = useState([]);
   //   const [orderId, setOrderId] = useState("");
